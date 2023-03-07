@@ -5,11 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <div class="links"> <!--This is the very top of the page-->
-        <div><p>Header Logo</p></div>
+        <div><p class="logo">Header Logo</p></div>
         <div>
             <ul>
                 <li>Header Link One</li>
@@ -19,20 +20,58 @@
         </div>
         </div>
         <div class="header-intro">
-            <div class="intro-container"> <!--turn into flex and to set both divs next to each other/maybe get
-            rid of this container and just set the 'header intro class to flex'-->
-                <div> <!--This is the 1st half of the header intro-->
-                    <h1>This Website is Awesome</h1>
-                    <p>This Website has some subtext that goes here under the main title. It's a smaller font 
-                        and the color is lower contrast
-                    </p>
-                    <button>Sign up</button>
-                </div>
-                <div> <!--This is the div where the place holder image will go-->
-                    <img>
-                </div>
+            <div>  <!--This is the 1st half of the header intro-->
+                <h1>This Website is Awesome</h1>
+                <p class="hero-secondary-text">This Website has some subtext that goes here under the main title. It's a smaller font 
+                    and the color is lower contrast
+                </p>
+                <button>Sign up</button>
+            </div>
+            <div> <!--This is the div where the place holder image will go-->
+                <img src="https://www.hindustantimes.com/ht-img/img/2023/02/15/1600x900/Catch_the_Dream_with_a_Touch_Haikyuu_Mobile_Game_1676455379671_1676455379961_1676455379961.webp" width="500" alt="haikyuu image">
             </div>
         </div>
     </header>
+    <section class="Random_Info">
+        <h1>Some Random Information</h1> <!--should be centered-->
+        <div class="Random_Info_container">
+        <div>
+            <img>
+            <p>this is some subtext under some illustration.</p>
+        </div>
+        <div>
+            <img>
+            <p>this is some subtext under some illustration.</p>
+        </div>
+        <div>
+            <img>
+            <p>this is some subtext under some illustration.</p>
+        </div>
+        <div>
+            <img>
+            <p>this is some subtext under some illustration.</p>
+        </div>
+        </div>
+    </section>
+    <section>
+        <p>This is an inspiring quote, or a testimonial form a customer. Maybe it's just filling up
+            space, or maybe people will actually read it. Who knows? All I know is it looks nice.
+        </p>
+        <p>-Thor, God of Thunder</p>
+    </section>
+    <section>
+        <div>
+            <div>
+                <h2>Call to Action! It's time!</h2>
+                <p>Sign up for our product by clicking that button right over there!</p>
+            </div>
+            <div>
+                <button>Sign Up</button>
+            </div>
+        </div>
+    </section>
 </body>
+<footer>
+    <p>Copyright  The Odin Project 2021</p>
+</footer>
 </html>

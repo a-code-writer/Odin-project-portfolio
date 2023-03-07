@@ -1,0 +1,67 @@
+body{
+    margin: 0;
+}
+
+.links{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 5px;
+    font-size: 18px;
+    color: #E5E7EB;
+}
+
+ul{
+    display: flex;
+    gap: 16px;
+    list-style-type: none;
+}
+
+header{
+    background-color: #1f2937;
+    padding: 0px 180px;
+}
+
+.header-intro{
+    display: flex;
+    padding: 95px 0px;
+}
+
+.header-intro > div{
+    flex:1
+}
+
+.header-intro > div > h1{
+    font-size: 48px;
+    font-weight: 800;
+    color:  #F9FAF8; 
+}
+
+.Random_Info_container{
+    display: flex;
+}
+
+button{
+    background-color: #3882F6;
+    border:0;
+    border-radius: 10%;
+}
+
+.hero-secondary-text{
+    font-size: 18px;
+    color: #E5E7EB;
+}
+
+.logo{
+    font-size: 24px;
+    color: #F9FAF8;
+}
+
+.Random_Info > h1{
+    display: flex;
+    justify-content: center;
+}
+
+.Random_Info{
+    padding:20px 180px 60px 180px;
+}
+
