@@ -65,3 +65,57 @@ button{
     padding:20px 180px 60px 180px;
 }
 
+.Rand_img{
+    width: 200px;
+    height: 200px;
+}
+
+.quote{
+    padding: 20px 180px 60px 180px;
+    background-color: #E5E7EB;
+}
+
+.content{
+    font-size: 36px;
+    color: #1f2937;
+}
+
+.author{
+    display: flex;
+    justify-content: right;
+    font-weight: 800;
+}
+
+.CTA{
+    padding:20px 180px 60px 180px;
+}
+
+.CTA_container{
+    background-color: #3882F6;
+    display: flex;
+    padding: 20px 60px;
+    justify-content: center;
+    align-items: center;
+}
+
+.CTA_info{
+    flex: 1;
+    color: #E5E7EB;
+}
+
+.CTA_button{
+    color: #F9FAF8;
+    border: #F9FAF8 solid 1px;
+    padding: 4px 10px;
+}
+
+footer{
+    display: flex;
+    justify-content: center;
+    background-color: #1f2937;
+    color: #F9FAF8;
+    padding: 20px 0px;
+}
+
+
+
