@@ -16,6 +16,7 @@ colorBtn.addEventListener('click', ()=>{
     display.textContent = `Background Color: ${color}`;
 })
 
+console.log('hello')
 
 
 
