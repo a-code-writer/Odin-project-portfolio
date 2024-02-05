@@ -1,0 +1,50 @@
+body, html{
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    overflow: hidden;
+}
+
+#header{
+    min-height: 15vh;
+    background-color: whitesmoke;
+    display: flex;
+    align-items: center;
+    padding-left: 5%;
+}
+
+#body{
+    display:flex;
+    min-height: 85vh;
+}
+
+#sidebar{
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+#content{
+    width:80vw;
+    background-color: whitesmoke;
+}
+
+.to-do{
+    display: flex;
+    justify-content: space-between;
+}
+
+li{
+    list-style-type: none;
+}
+
+#sidebar-first{
+    height: 80%;
+    
+}
+
+li{
+    display: flex;
+    justify-content: space-between;
+}
