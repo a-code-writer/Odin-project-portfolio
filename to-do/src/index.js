@@ -196,7 +196,7 @@ form.addEventListener('submit', (event) => {
     form.remove()
 })
 
-taskForm.addEventListener('submit',(event)=> {
+taskForm.addEventListener('submit',(event)=> { //submit to-do 
     event.preventDefault();
     const newToDo = toDo(taskNameInput.value, taskDuedate.value, taskPriority.checked, taskProject.value)
     taskList.push(newToDo);
@@ -205,7 +205,7 @@ taskForm.addEventListener('submit',(event)=> {
     //use list to create DOM to-do elements
     for(let i = 0; i < taskList.length; i++){
         let container = document.createElement('li') //container div for to-do
-        container.setAttribute('index', i) 
+        container.setAttribute('code', i) 
         let containerLeft = document.createElement('div')
         containerLeft.setAttribute('style', 'display: flex')
         let containerRight = document.createElement('div')
@@ -227,13 +227,16 @@ taskForm.addEventListener('submit',(event)=> {
         toDoMenu.addEventListener('click', () => {
             if(!container.nextElementSibling || container.nextElementSibling.tagName !== "DIV"){
                 let toDoBtnsDiv = document.createElement('div') //div which will contain all 3 menu btns for to-do
+                toDoBtnsDiv.setAttribute('code', i)
                 toDoBtnsDiv.setAttribute('style', 'display: flex; justify-content: end;')
-                let toDoEdit = document.createElement('button')
+                let toDoEdit = document.createElement('button') //edit button
                 toDoEdit.textContent = "Edit"
-                let toDoDelete = document.createElement('button')
+                let toDoDelete = document.createElement('button') //delete button
                 toDoDelete.textContent = "Delete";
                 toDoDelete.addEventListener('click', () => {
-
+                    taskList.splice(i)
+                    document.querySelector(`li[code="${i}"]`).remove()
+                    document.querySelector(`div[code="${i}"]`).remove()
                 })
                 let toDoCancel = document.createElement('button')
                 toDoCancel.textContent = 'Cancel'
