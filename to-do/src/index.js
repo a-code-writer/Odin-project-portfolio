@@ -210,7 +210,7 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
         containerLeft.setAttribute('style', 'display: flex')
         let containerRight = document.createElement('div')
         containerRight.setAttribute('style', 'display: flex; align-items: center')
-
+    
         let toDoCheck = document.createElement('input')
         toDoCheck.setAttribute('type', 'checkbox')
 
@@ -229,8 +229,16 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
                 let toDoBtnsDiv = document.createElement('div') //div which will contain all 3 menu btns for to-do
                 toDoBtnsDiv.setAttribute('code', i)
                 toDoBtnsDiv.setAttribute('style', 'display: flex; justify-content: end;')
+
                 let toDoEdit = document.createElement('button') //edit button
                 toDoEdit.textContent = "Edit"
+                toDoEdit.addEventListener('click', () => {
+                    let editForm = document.createElement('form')//form that will take input and replace to-do item info
+                    let toDoFormName = document.createElement('input');
+                    let toDoFormDate = document.createElement('input')
+                    toDoFormDate.setAttribute('type', 'date');
+                    document.querySelector(`li[code="${i}"]`).appendChild(editForm) //selects to-do item li element which will have the edit form appended at the bottom
+                })
                 let toDoDelete = document.createElement('button') //delete button
                 toDoDelete.textContent = "Delete";
                 toDoDelete.addEventListener('click', () => {
@@ -252,7 +260,6 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
                 document.getElementById('content').insertBefore(toDoBtnsDiv, container.nextElementSibling)
             }
         })
-
 
         containerLeft.appendChild(toDoCheck);
         containerLeft.appendChild(toDoName);
