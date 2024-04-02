@@ -234,11 +234,36 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
                 toDoEdit.textContent = "Edit"
                 toDoEdit.addEventListener('click', () => {
                     let editForm = document.createElement('form')//form that will take input and replace to-do item info
+
                     let toDoFormName = document.createElement('input');
+                    toDoFormName.setAttribute('placeholder', 'Set New Task Name Here');
+
+                    let toDoFormProject = document.createElement('select')
+                    toDoFormPriority.textContent = 'Is this part of a project?'
+                    toDoFormProject.innerHTML = '<option></option>';
+                   projects.forEach(project => {
+                    const option = document.createElement('option');
+                    option.text = project;
+                    option.value = project;
+                    toDoFormProject.appendChild(option);
+                    })
+
+                    let toDoFormPriority = document.createElement('select')
+                    
+                    toDoFormPriority.innerHTML = '<option>Priority</option> <option>Not a Priority</option>'
                     let toDoFormDate = document.createElement('input')
                     toDoFormDate.setAttribute('type', 'date');
+
+                    editForm.appendChild(toDoFormName)
+                    editForm.appendChild(toDoFormDate)
+                    editForm.appendChild(toDoFormPriority)
+                    editForm.appendChild(toDoFormProject)
+
                     document.querySelector(`li[code="${i}"]`).appendChild(editForm) //selects to-do item li element which will have the edit form appended at the bottom
                 })
+
+
+
                 let toDoDelete = document.createElement('button') //delete button
                 toDoDelete.textContent = "Delete";
                 toDoDelete.addEventListener('click', () => {
