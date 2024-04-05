@@ -233,13 +233,14 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
                 let toDoEdit = document.createElement('button') //edit button
                 toDoEdit.textContent = "Edit"
                 toDoEdit.addEventListener('click', () => {
+                    if(!container.nextElementSibling || container.nextElementSibling.tagName !== "FORM"){ //checks to see if the next element after container is a form. if not it appends the to-do update form to the bottom of the to-do content container div
                     let editForm = document.createElement('form')//form that will take input and replace to-do item info
 
                     let toDoFormName = document.createElement('input');
                     toDoFormName.setAttribute('placeholder', 'Set New Task Name Here');
 
                     let toDoFormProject = document.createElement('select')
-                    toDoFormPriority.textContent = 'Is this part of a project?'
+                    toDoFormProject.textContent = 'Is this part of a project?'
                     toDoFormProject.innerHTML = '<option></option>';
                    projects.forEach(project => {
                     const option = document.createElement('option');
@@ -259,7 +260,9 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
                     editForm.appendChild(toDoFormPriority)
                     editForm.appendChild(toDoFormProject)
 
-                    document.querySelector(`li[code="${i}"]`).appendChild(editForm) //selects to-do item li element which will have the edit form appended at the bottom
+                    document.getElementById('content').insertBefore(editForm, container.nextElementSibling)
+                }
+                   // document.querySelector(`li[code="${i}"]`).appendChild(editForm) //selects to-do item li element which will have the edit form appended at the bottom
                 })
 
 
