@@ -225,7 +225,7 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
         toDoMenu.setAttribute('style', 'max-height: 20px; max-width: 20px')
         toDoMenu.setAttribute('index', i)
         toDoMenu.addEventListener('click', () => {
-            if(!container.nextElementSibling || container.nextElementSibling.tagName !== "DIV"){
+            if(!container.nextElementSibling || container.nextElementSibling.tagName !== "FORM" && container.nextElementSibling.tagName !== "DIV"){
                 let toDoBtnsDiv = document.createElement('div') //div which will contain all 3 menu btns for to-do
                 toDoBtnsDiv.setAttribute('code', i)
                 toDoBtnsDiv.setAttribute('style', 'display: flex; justify-content: end;')
@@ -250,15 +250,28 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
                     })
 
                     let toDoFormPriority = document.createElement('select')
-                    
                     toDoFormPriority.innerHTML = '<option>Priority</option> <option>Not a Priority</option>'
+
                     let toDoFormDate = document.createElement('input')
                     toDoFormDate.setAttribute('type', 'date');
+
+                    let toDoFormSubmit = document.createElement('button')
+                    toDoFormSubmit.textContent = 'Submit'
+                    toDoFormSubmit.setAttribute('type', 'submit')
+
+                    let toDoFormCancel = document.createElement('button')
+                    toDoFormCancel.textContent = 'Cancel';
+                    toDoFormCancel.addEventListener('click', () => {
+                        editForm.remove();
+                    });
 
                     editForm.appendChild(toDoFormName)
                     editForm.appendChild(toDoFormDate)
                     editForm.appendChild(toDoFormPriority)
                     editForm.appendChild(toDoFormProject)
+                    editForm.appendChild(toDoFormSubmit)
+                    editForm.appendChild(toDoFormCancel)
+
 
                     document.getElementById('content').insertBefore(editForm, container.nextElementSibling)
                 }
