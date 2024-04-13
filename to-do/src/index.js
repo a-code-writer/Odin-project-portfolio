@@ -272,6 +272,13 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
                     editForm.appendChild(toDoFormSubmit)
                     editForm.appendChild(toDoFormCancel)
 
+                    // editForm.addEventListener('submit', (event) =>{
+                    //     event.preventDefault();
+                    //     toDoName = toDoFormName.value
+                    //     toDoDate = toDoFormDate.value
+                    //     tod
+                    // })
+
 
                     document.getElementById('content').insertBefore(editForm, container.nextElementSibling)
                 }
