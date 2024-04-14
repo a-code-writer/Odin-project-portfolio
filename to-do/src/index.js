@@ -251,6 +251,7 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
 
                     let toDoFormPriority = document.createElement('select')
                     toDoFormPriority.innerHTML = '<option>Priority</option> <option>Not a Priority</option>'
+                    
 
                     let toDoFormDate = document.createElement('input')
                     toDoFormDate.setAttribute('type', 'date');
@@ -274,9 +275,10 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
 
                     // editForm.addEventListener('submit', (event) =>{
                     //     event.preventDefault();
-                    //     toDoName = toDoFormName.value
-                    //     toDoDate = toDoFormDate.value
-                    //     tod
+                    //     taskList[i].name = toDoFormName.value
+                    //     taskList[i].dueDate = toDoFormDate.value
+                    //     taskList[i].priority = toDoFormPriority.value
+                    //     taskList[i].projParent = toDoFormProject.value
                     // })
 
 
