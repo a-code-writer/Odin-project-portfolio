@@ -273,13 +273,18 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
                     editForm.appendChild(toDoFormSubmit)
                     editForm.appendChild(toDoFormCancel)
 
-                    // editForm.addEventListener('submit', (event) =>{
-                    //     event.preventDefault();
-                    //     taskList[i].name = toDoFormName.value
-                    //     taskList[i].dueDate = toDoFormDate.value
-                    //     taskList[i].priority = toDoFormPriority.value
-                    //     taskList[i].projParent = toDoFormProject.value
-                    // })
+                    editForm.addEventListener('submit', (event) =>{
+                        event.preventDefault();
+                        taskList[i].name = toDoFormName.value
+                        taskList[i].dueDate = toDoFormDate.value
+                        if(toDoFormPriority.value == "Not a Priority"){ //checks if user selected Not priority or priority and uses if statment to set prioirty status to true or falsely
+                            taskList[i].priority = false;
+                        } else{
+                            taskList[i].priority = true;
+                        }
+                        taskList[i].projParent = toDoFormProject.value
+                        editForm.remove()
+                    })
 
 
                     document.getElementById('content').insertBefore(editForm, container.nextElementSibling)
@@ -296,6 +301,8 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
                     document.querySelector(`li[code="${i}"]`).remove()
                     document.querySelector(`div[code="${i}"]`).remove()
                 })
+
+                
                 let toDoCancel = document.createElement('button')
                 toDoCancel.textContent = 'Cancel'
                 toDoCancel.addEventListener('click', () => {
