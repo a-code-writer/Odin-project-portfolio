@@ -220,6 +220,12 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
         let toDoDate = document.createElement('p')
         toDoDate.textContent = taskList[i].dueDate;
 
+        if(taskList[i].priority == true){
+            container.setAttribute('style', 'border: 5px solid black;')
+        } else{
+            container.setAttribute('style', 'border: 5px solid red;')
+        }
+
         let toDoMenu = document.createElement('img');
         toDoMenu.setAttribute('src', '../3-dots.png') 
         toDoMenu.setAttribute('style', 'max-height: 20px; max-width: 20px')
@@ -275,6 +281,7 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
 
                     editForm.addEventListener('submit', (event) =>{
                         event.preventDefault();
+                        //code to change object's values
                         taskList[i].name = toDoFormName.value
                         taskList[i].dueDate = toDoFormDate.value
                         if(toDoFormPriority.value == "Not a Priority"){ //checks if user selected Not priority or priority and uses if statment to set prioirty status to true or falsely
@@ -283,6 +290,13 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
                             taskList[i].priority = true;
                         }
                         taskList[i].projParent = toDoFormProject.value
+
+                        //code to change the DOM values
+                        toDoDate.textContent = taskList[i].dueDate;
+                        toDoName.textContent = taskList[i].name;
+                        //still have to add styling to the <li> border to indicate priority level. Will do this
+                        //by checking objects priority status and adding css 
+
                         editForm.remove()
                     })
 
@@ -302,7 +316,7 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
                     document.querySelector(`div[code="${i}"]`).remove()
                 })
 
-                
+
                 let toDoCancel = document.createElement('button')
                 toDoCancel.textContent = 'Cancel'
                 toDoCancel.addEventListener('click', () => {
