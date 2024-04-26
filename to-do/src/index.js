@@ -220,11 +220,13 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
         let toDoDate = document.createElement('p')
         toDoDate.textContent = taskList[i].dueDate;
 
-        if(taskList[i].priority == true){
-            container.setAttribute('style', 'border: 5px solid black;')
-        } else{
-            container.setAttribute('style', 'border: 5px solid red;')
+        let borderStyle = 'border: 5px solid;';
+        if (taskList[i].priority == true) {
+          borderStyle += ' red;';
+        } else {
+          borderStyle += ' black;';
         }
+
 
         let toDoMenu = document.createElement('img');
         toDoMenu.setAttribute('src', '../3-dots.png') 
@@ -340,7 +342,8 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
 
         container.appendChild(containerLeft);
         container.appendChild(containerRight);
-        container.setAttribute('style', ' display: flex; justify-content: space-between');
+        
+        container.setAttribute('style', ` display: flex; justify-content: space-between; ${borderStyle} `);
 
         document.getElementById('content').appendChild(container)
     }
