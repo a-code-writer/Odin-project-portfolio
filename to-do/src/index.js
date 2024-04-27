@@ -220,7 +220,7 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
         let toDoDate = document.createElement('p')
         toDoDate.textContent = taskList[i].dueDate;
 
-        let borderStyle = 'border: 5px solid;';
+        let borderStyle = 'border: 5px solid';
         if (taskList[i].priority == true) {
           borderStyle += ' red;';
         } else {
@@ -296,7 +296,15 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
                         //code to change the DOM values
                         toDoDate.textContent = taskList[i].dueDate;
                         toDoName.textContent = taskList[i].name;
-                        //still have to add styling to the <li> border to indicate priority level. Will do this
+                        let borderStyle = 'border: 5px solid';
+                        if (taskList[i].priority == true) {
+                          borderStyle += ' red;';
+                        } else {
+                          borderStyle += ' black;';
+                        }
+
+                        container.setAttribute('style', `${borderStyle}`)
+                       //<li> border to indicate priority level. Will do this
                         //by checking objects priority status and adding css 
 
                         editForm.remove()
