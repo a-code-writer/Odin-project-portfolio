@@ -305,7 +305,7 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
 
                         container.setAttribute('style', `${borderStyle}`)
                        //<li> border to indicate priority level. Will do this
-                        //by checking objects priority status and adding css 
+                        //by checking objects priority status and adding css  
 
                         editForm.remove()
                     })
@@ -321,7 +321,7 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
                 let toDoDelete = document.createElement('button') //delete button
                 toDoDelete.textContent = "Delete";
                 toDoDelete.addEventListener('click', () => {
-                    taskList.splice(i)
+                    taskList.splice(i, 1)
                     document.querySelector(`li[code="${i}"]`).remove()
                     document.querySelector(`div[code="${i}"]`).remove()
                 })
