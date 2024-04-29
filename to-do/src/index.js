@@ -359,3 +359,11 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
     taskForm.remove()
 })
 
+
+//setting todayTab
+document.getElementById('todayTab').addEventListener('click', () => {
+    document.getElementById('content').innerHTML = "";
+    for(let i = 0; i <= taskList.length; i++){
+        if(taskList[i].dueDate )
+    }
+})
