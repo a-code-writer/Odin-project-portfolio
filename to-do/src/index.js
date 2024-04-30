@@ -196,6 +196,7 @@ form.addEventListener('submit', (event) => {
     form.remove()
 })
 
+//submit to-do button
 taskForm.addEventListener('submit',(event)=> { //submit to-do 
     event.preventDefault();
     const newToDo = toDo(taskNameInput.value, taskDuedate.value, taskPriority.checked, taskProject.value)
@@ -363,7 +364,48 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
 //setting todayTab
 document.getElementById('todayTab').addEventListener('click', () => {
     document.getElementById('content').innerHTML = "";
+    const today = new Date();
     for(let i = 0; i <= taskList.length; i++){
-        if(taskList[i].dueDate )
+        const inputDate = new Date(taskList[i].Date)
+        const timeDiff = Math.abs(today.getTime() - inputDate.getTime());
+        const dayInMilliseconds = 24 * 60 * 60 * 1000;
+        if(timeDiff <= dayInMilliseconds){
+            //append all to-do's within a day to the content div
+            let container = document.createElement('li') //container div for to-do
+             container.setAttribute('code', i) 
+            let containerLeft = document.createElement('div')
+            containerLeft.setAttribute('style', 'display: flex')
+            let containerRight = document.createElement('div')
+            containerRight.setAttribute('style', 'display: flex; align-items: center')
+        
+            let toDoCheck = document.createElement('input')
+            toDoCheck.setAttribute('type', 'checkbox')
+
+            let toDoName = document.createElement('p');
+            toDoName.textContent = taskList[i].name;
+
+            let toDoDate = document.createElement('p')
+            toDoDate.textContent = taskList[i].dueDate;
+
+            let borderStyle = 'border: 5px solid';
+            if (taskList[i].priority == true) {
+            borderStyle += ' red;';
+            } else {
+            borderStyle += ' black;';
+            }
+
+            containerLeft.appendChild(toDoCheck);
+            containerLeft.appendChild(toDoName);
+
+            containerRight.appendChild(toDoDate)
+            containerRight.appendChild(toDoMenu);
+
+            container.appendChild(containerLeft);
+            container.appendChild(containerRight);
+            
+            container.setAttribute('style', ` display: flex; justify-content: space-between; ${borderStyle} `);
+
+            document.getElementById('content').appendChild(container)
+        }
     }
 })
