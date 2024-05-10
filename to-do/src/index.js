@@ -106,11 +106,16 @@ form.addEventListener('submit', (event) => {
     event.preventDefault();
     projects.push(projName.value); //add input to list
     projectsTab.innerHTML = ""; //resets sidebar content
+    
+
     for(let i = 0; i < projects.length; i++){ //adds all current projects in array to sidebar
         
         let projLi = document.createElement('li') 
         projLi.innerText = projects[i] 
         projLi.setAttribute('index', i); //How I will be able to choose and edit specific projects
+        projLi.addEventListener('click', () => {
+            document.getElementById('content').innerHTML = "";
+        })
 
         let menu = document.createElement('img'); //3 dots at end of project div
         menu.setAttribute('src', '../3-dots.png')
@@ -180,6 +185,7 @@ form.addEventListener('submit', (event) => {
                 projectsTab.insertBefore(menuBtns, adjLi.nextSibling) 
             }
         })
+
         projLi.appendChild(menu)
         projectsTab.appendChild(projLi)
     }
