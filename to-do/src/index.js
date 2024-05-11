@@ -113,8 +113,16 @@ form.addEventListener('submit', (event) => {
         let projLi = document.createElement('li') 
         projLi.innerText = projects[i] 
         projLi.setAttribute('index', i); //How I will be able to choose and edit specific projects
-        projLi.addEventListener('click', () => {
+
+        projLi.addEventListener('click', () => {  //clicking on projLi will show all tasks that are related with that project
+            let projectToDos = [1, 2, 3];
             document.getElementById('content').innerHTML = "";
+            
+            for(let i = 0; i <= taskList; i++){
+                if (taskList[i].projParent == projects[i]){
+                    console.log("to-do here!")
+                }
+            }
         })
 
         let menu = document.createElement('img'); //3 dots at end of project div
