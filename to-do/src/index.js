@@ -115,11 +115,14 @@ form.addEventListener('submit', (event) => {
         projLi.setAttribute('index', i); //How I will be able to choose and edit specific projects
 
         projLi.addEventListener('click', () => {  //clicking on projLi will show all tasks that are related with that project
-    
+            console.log('step')
             document.getElementById('content').innerHTML = "";
+            let content = document.getElementById('content')
             
-            if (taskList[i].projParent == projects[i]){
-                document.getElementById('content').appendChild(document.querySelector(`li[code="${i}"]`))
+            for(let j = 0; j < taskList.length; j++){
+                if(projLi.innerText = taskList[j].projParent){
+                    content.appendChild(document.querySelector(`li[code="${i}"]`))
+                }
             }
             
         })
