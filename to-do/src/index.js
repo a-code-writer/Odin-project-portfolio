@@ -117,11 +117,11 @@ form.addEventListener('submit', (event) => {
         projLi.addEventListener('click', () => {  //clicking on projLi will show all tasks that are related with that project
             console.log('step')
             document.getElementById('content').innerHTML = "";
-            let content = document.getElementById('content')
             
             for(let j = 0; j < taskList.length; j++){
                 if(projLi.innerText = taskList[j].projParent){
-                    content.appendChild(document.querySelector(`li[code="${i}"]`))
+                    console.log('step1')
+                    document.getElementById('content').appendChild(document.querySelector(`li[code="${i}"]`))
                 }
             }
             
