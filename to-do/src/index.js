@@ -1,4 +1,4 @@
-import createToDo from "./create-to-do.js";
+import { createToDo } from "./create-to-do";
 
 
 let projects = [];
@@ -38,6 +38,7 @@ form.appendChild(cancelBtn);
 let projBtn = document.getElementById('add-btn')
 projBtn.addEventListener('click', () => {
     document.getElementById('content').appendChild(form);
+    createToDo();
 })
 
 
