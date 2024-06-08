@@ -1,5 +1,10 @@
-import { createToDo } from "./create-to-do";
+import createToDo from "./create-to-do";
 
+function hello() {
+    console.log('hello')
+}
+
+hello()
 
 let projects = [];
 let taskList = [];
@@ -38,7 +43,7 @@ form.appendChild(cancelBtn);
 let projBtn = document.getElementById('add-btn')
 projBtn.addEventListener('click', () => {
     document.getElementById('content').appendChild(form);
-    createToDo();
+   
 })
 
 
