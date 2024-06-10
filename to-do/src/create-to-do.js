@@ -1,4 +1,4 @@
-const createToDo = (toDo, i) => {
+const createToDo = (value, i, array) => { //might need to completely re-do the way I create to-dos
     let container = document.createElement('li') //container div for to-do
         container.setAttribute('code', i) 
         let containerLeft = document.createElement('div')
@@ -10,13 +10,13 @@ const createToDo = (toDo, i) => {
         toDoCheck.setAttribute('type', 'checkbox')
 
         let toDoName = document.createElement('p');
-        toDoName.textContent = taskList[i].name;
+        toDoName.textContent = value[i].name;
 
         let toDoDate = document.createElement('p')
-        toDoDate.textContent = taskList[i].dueDate;
+        toDoDate.textContent = value[i].dueDate;
 
         let borderStyle = 'border: 5px solid';
-        if (taskList[i].priority == true) {
+        if (value[i].priority == true) {
           borderStyle += ' red;';
         } else {
           borderStyle += ' black;';
@@ -79,20 +79,20 @@ const createToDo = (toDo, i) => {
                     editForm.addEventListener('submit', (event) =>{
                         event.preventDefault();
                         //code to change object's values
-                        taskList[i].name = toDoFormName.value
-                        taskList[i].dueDate = toDoFormDate.value
+                        value[i].name = toDoFormName.value
+                        value[i].dueDate = toDoFormDate.value
                         if(toDoFormPriority.value == "Not a Priority"){ //checks if user selected Not priority or priority and uses if statment to set prioirty status to true or falsely
-                            taskList[i].priority = false;
+                            value[i].priority = false;
                         } else{
-                            taskList[i].priority = true;
+                            value[i].priority = true;
                         }
-                        taskList[i].projParent = toDoFormProject.value
+                        value[i].projParent = toDoFormProject.value
 
                         //code to change the DOM values
-                        toDoDate.textContent = taskList[i].dueDate;
-                        toDoName.textContent = taskList[i].name;
+                        toDoDate.textContent = value[i].dueDate;
+                        toDoName.textContent = value[i].name;
                         let borderStyle = 'border: 5px solid';
-                        if (taskList[i].priority == true) {
+                        if (value[i].priority == true) {
                           borderStyle += ' red;';
                         } else {
                           borderStyle += ' black;';
@@ -116,7 +116,7 @@ const createToDo = (toDo, i) => {
                 let toDoDelete = document.createElement('button') //delete button
                 toDoDelete.textContent = "Delete";
                 toDoDelete.addEventListener('click', () => {
-                    taskList.splice(i, 1)
+                    value.splice(i, 1)
                     document.querySelector(`li[code="${i}"]`).remove()
                     document.querySelector(`div[code="${i}"]`).remove()
                 })

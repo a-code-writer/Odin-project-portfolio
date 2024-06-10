@@ -227,9 +227,7 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
     document.getElementById('content').innerHTML = ""
 
     //use list to create DOM to-do elements
-    taskList.forEach((toDo, i) => {
-        createToDo(toDo, i);
-    });
+    taskList.forEach(createToDo(toDo, i, taskList)); //maybe use map here
 
     taskForm.remove()
 })
