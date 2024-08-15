@@ -227,7 +227,20 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
     document.getElementById('content').innerHTML = ""
 
     //use list to create DOM to-do elements
-    taskList.forEach(createToDo(toDo, i, taskList)); //maybe use map here
+    taskList.forEach(createToDo(toDo, taskList)); //maybe use map here //creating to-do but I'm using a module to-do.js. something is going wrong
+    //with when I access the module, the code inside doesn't work. I'm getting an error that cariable 'i' is not defined. Is this a 
+    //scope issue? The foreach loop shoud read for every to in the taskList, create a fully functional to-do, and then append it to the content div
+    // if i remove the i in the createToDo function parameters, the createToDo func throws an error that value[i] is not defined.
+    // maybe this is why I said I might have to comepletely redo the way I make fucntions. Oh well, anyways the createTodo func
+    // has 3 parameters the array that will be used to create to-do's from. Every index in the array will be used to create a to-do.
+    // A value argument that will be the value of the index in the array. 
+    //The third argument should be the index, no? Take the array, loop through it with the i var as the index locator,
+    //and then use that to create the to-do. Might be thinking about this completely wrong but from what I see,
+    //the foreach loop in the index file, uses the taskList which is located in this file as the array that is being looped through.
+    // For every element in that array, a function is called, that function should take the the value of the current index
+    // in the for loop as the argument. So the value of the current iteration of the taskList will be used to create the to-do.
+    // Right? I think i may be on to something. Maybe I should get rid of the 
+
 
     taskForm.remove()
 })
