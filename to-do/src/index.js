@@ -239,7 +239,19 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
     //the foreach loop in the index file, uses the taskList which is located in this file as the array that is being looped through.
     // For every element in that array, a function is called, that function should take the the value of the current index
     // in the for loop as the argument. So the value of the current iteration of the taskList will be used to create the to-do.
-    // Right? I think i may be on to something. Maybe I should get rid of the 
+    // Right? I think i may be on to something. Maybe I should get rid of the [i] in the createToDo function.
+    //Maybe the createToDo function should just take the value of the element in the taskList array that is being looped by\
+    // the foreach loop and use the value to create the to-do. Maybe I should paste the to-do object defining code
+
+    //into the create-to-do function. Or maybe not in the function but right above it. Right now i'm thinking that
+    //the only argument in the createToDO function should be the onject object in the TaskList array that is being
+    //accessed in the current iteration. What's inside of the TaskList array are objects. To-dos with values like 
+    // due date, name, priority, and parent project. So the foreach loop should access that object. The createToDo
+    // function should something like this createToDo(element in taskList) => create DOM elements. take element.date, element.name etc
+    // and use those values to populate the empty DOM elements. But then why did I use those [i] elements before?
+    // I used it so that the menu buttons (edit, delete) and the project DOM elements would have the same index
+    // and so if edit[1] was pushed it would delete the to-do with the same index as it. Do I have to do it that
+    //way? If so thats a problem. 
 
 
     taskForm.remove()
