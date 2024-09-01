@@ -253,6 +253,11 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
     // and so if edit[1] was pushed it would delete the to-do with the same index as it. Do I have to do it that
     //way? If so thats a problem. 
 
+    //on every function call ie:(createToDo(element in taskList)) it will first create empty DOM elements, the 
+    //reason I created the attribute [i] and gave it to each of these new DOM elements being created was so that
+    //when I deleted one, the delete button would have the same index as the to-do that was deleted and would 
+    //only delete the correlating to-do. However, by removing that [i], what would happen? IDK but clearly something
+    //bad or I never would have used the [i] in the first place. 
 
     taskForm.remove()
 })
