@@ -227,37 +227,21 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
     document.getElementById('content').innerHTML = ""
 
     //use list to create DOM to-do elements
-    taskList.forEach(createToDo(toDo, taskList)); //maybe use map here //creating to-do but I'm using a module to-do.js. something is going wrong
-    //with when I access the module, the code inside doesn't work. I'm getting an error that cariable 'i' is not defined. Is this a 
-    //scope issue? The foreach loop shoud read for every to in the taskList, create a fully functional to-do, and then append it to the content div
-    // if i remove the i in the createToDo function parameters, the createToDo func throws an error that value[i] is not defined.
-    // maybe this is why I said I might have to comepletely redo the way I make fucntions. Oh well, anyways the createTodo func
-    // has 3 parameters the array that will be used to create to-do's from. Every index in the array will be used to create a to-do.
-    // A value argument that will be the value of the index in the array. 
-    //The third argument should be the index, no? Take the array, loop through it with the i var as the index locator,
-    //and then use that to create the to-do. Might be thinking about this completely wrong but from what I see,
-    //the foreach loop in the index file, uses the taskList which is located in this file as the array that is being looped through.
-    // For every element in that array, a function is called, that function should take the the value of the current index
-    // in the for loop as the argument. So the value of the current iteration of the taskList will be used to create the to-do.
-    // Right? I think i may be on to something. Maybe I should get rid of the [i] in the createToDo function.
-    //Maybe the createToDo function should just take the value of the element in the taskList array that is being looped by\
-    // the foreach loop and use the value to create the to-do. Maybe I should paste the to-do object defining code
+    for(let i = 0; i < taskList.length; i++){
+        createToDo(i)
+    }
+    //createToDo needs just one arguments: the the object we want to create a to-do from. Not it's index or
+    //array. Soley from the object, it can get the duedate, priority, parent, name. 
 
-    //into the create-to-do function. Or maybe not in the function but right above it. Right now i'm thinking that
-    //the only argument in the createToDO function should be the onject object in the TaskList array that is being
-    //accessed in the current iteration. What's inside of the TaskList array are objects. To-dos with values like 
-    // due date, name, priority, and parent project. So the foreach loop should access that object. The createToDo
-    // function should something like this createToDo(element in taskList) => create DOM elements. take element.date, element.name etc
-    // and use those values to populate the empty DOM elements. But then why did I use those [i] elements before?
-    // I used it so that the menu buttons (edit, delete) and the project DOM elements would have the same index
-    // and so if edit[1] was pushed it would delete the to-do with the same index as it. Do I have to do it that
-    //way? If so thats a problem. 
+    //That just leaves the index. How do i mark each to-do so it's unique. This is key because it's how the
+    //buttons will target what to-do to edit/delete. 
 
-    //on every function call ie:(createToDo(element in taskList)) it will first create empty DOM elements, the 
-    //reason I created the attribute [i] and gave it to each of these new DOM elements being created was so that
-    //when I deleted one, the delete button would have the same index as the to-do that was deleted and would 
-    //only delete the correlating to-do. However, by removing that [i], what would happen? IDK but clearly something
-    //bad or I never would have used the [i] in the first place. 
+    //Do i put that code inside the createToDo function? 
+
+    //maybe: on submit => clear DOM and delete all current todos => loop thru taskList => 
+    // call createToDo on every object inside [createToDO has 3 arguments: the list ]=> create empty div => add index attribute to div =>
+    //create DOM elements inside div and append them to div => fill empty elements with values from current object 
+    // => append div to content div
 
     taskForm.remove()
 })
