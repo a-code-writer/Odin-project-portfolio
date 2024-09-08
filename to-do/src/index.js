@@ -228,7 +228,8 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
 
     //use list to create DOM to-do elements
     for(let i = 0; i < taskList.length; i++){
-        createToDo(i)
+        createToDo(taskList[i], i)
+        // console.log(taskList[i])
     }
     //createToDo needs just one arguments: the the object we want to create a to-do from. Not it's index or
     //array. Soley from the object, it can get the duedate, priority, parent, name. 
