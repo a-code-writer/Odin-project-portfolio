@@ -1,6 +1,9 @@
+import taskList from "./index.js";
+import { projects } from "./index.js";
+
 const createToDo = (newToDo, i) => { 
     //i was kept as a n argument to use as a unique identifier for each to-do.
-
+    console.log(taskList)
     let container = document.createElement('li') //container div for to-do
         container.setAttribute('code', i) 
         let containerLeft = document.createElement('div')
@@ -85,14 +88,14 @@ const createToDo = (newToDo, i) => {
                     editForm.addEventListener('submit', (event) =>{
                         event.preventDefault();
                         //code to change object's values
-                        value[i].name = toDoFormName.value
-                        value[i].dueDate = toDoFormDate.value
+                        newToDo.name = toDoFormName.value
+                        newToDo.dueDate = toDoFormDate.value
                         if(toDoFormPriority.value == "Not a Priority"){ //checks if user selected Not priority or priority and uses if statment to set prioirty status to true or falsely
-                            value[i].priority = false;
+                            newToDo.priority = false;
                         } else{
-                            value[i].priority = true;
+                            newToDo.priority = true;
                         }
-                        value[i].projParent = toDoFormProject.value
+                        newToDo.projParent = toDoFormProject.value
 
                         //code to change the DOM values
                         toDoDate.textContent = value[i].dueDate;
@@ -122,7 +125,7 @@ const createToDo = (newToDo, i) => {
                 let toDoDelete = document.createElement('button') //delete button
                 toDoDelete.textContent = "Delete";
                 toDoDelete.addEventListener('click', () => {
-                    value.splice(i, 1)
+                    taskList.splice(i, 1)
                     document.querySelector(`li[code="${i}"]`).remove()
                     document.querySelector(`div[code="${i}"]`).remove()
                 })

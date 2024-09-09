@@ -296,3 +296,6 @@ document.getElementById('todayTab').addEventListener('click', () => {
         }
     }
 })
+
+export default taskList
+export {projects}
