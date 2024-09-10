@@ -15,11 +15,7 @@ const createToDo = (newToDo, i) => {
         toDoCheck.setAttribute('type', 'checkbox')
 
         let toDoName = document.createElement('p');
-        toDoName.textContent = newToDo.name;
-        //maybe get rid of the [i] part, and just use the value directly. 
-        //The loop in the index file will take care of this. I used the [i] in the first place so that every to-do 
-        //had it's own 'identifier', so that I could choose specific to-do/s. But now it doesn't make so much sense.
-        // Do i need the [i] identifier? Maybe I should look at other peoples solutions. 
+        toDoName.textContent = newToDo.name; 
 
         let toDoDate = document.createElement('p')
         toDoDate.textContent = newToDo.dueDate;
@@ -98,10 +94,10 @@ const createToDo = (newToDo, i) => {
                         newToDo.projParent = toDoFormProject.value
 
                         //code to change the DOM values
-                        toDoDate.textContent = value[i].dueDate;
-                        toDoName.textContent = value[i].name;
+                        toDoDate.textContent = newToDo.dueDate;
+                        toDoName.textContent = newToDo.name;
                         let borderStyle = 'border: 5px solid';
-                        if (value[i].priority == true) {
+                        if (newToDo.priority == true) {
                           borderStyle += ' red;';
                         } else {
                           borderStyle += ' black;';
@@ -117,7 +113,7 @@ const createToDo = (newToDo, i) => {
 
                     document.getElementById('content').insertBefore(editForm, container.nextElementSibling)
                 }
-                   // document.querySelector(`li[code="${i}"]`).appendChild(editForm) //selects to-do item li element which will have the edit form appended at the bottom
+                   
                 })
 
 
