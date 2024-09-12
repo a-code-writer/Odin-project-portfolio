@@ -6,12 +6,13 @@ let taskList = [];
 let projectsTab = document.getElementById('projectsTab') //sidebar
 let addTask = document.getElementById('add-task') 
 
-function toDo(name, dueDate, priority, projParent){ //to-do object
+function toDo(name, dueDate, priority, projParent, status){ //to-do object
     return {
         name,
         dueDate,
         priority,
-        projParent 
+        projParent , 
+        status
     }
 }
 
@@ -229,20 +230,7 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
     //use list to create DOM to-do elements
     for(let i = 0; i < taskList.length; i++){
         createToDo(taskList[i], i)
-        // console.log(taskList[i])
     }
-    //createToDo needs just one arguments: the the object we want to create a to-do from. Not it's index or
-    //array. Soley from the object, it can get the duedate, priority, parent, name. 
-
-    //That just leaves the index. How do i mark each to-do so it's unique. This is key because it's how the
-    //buttons will target what to-do to edit/delete. 
-
-    //Do i put that code inside the createToDo function? 
-
-    //maybe: on submit => clear DOM and delete all current todos => loop thru taskList => 
-    // call createToDo on every object inside [createToDO has 3 arguments: the list ]=> create empty div => add index attribute to div =>
-    //create DOM elements inside div and append them to div => fill empty elements with values from current object 
-    // => append div to content div
 
     taskForm.remove()
 })

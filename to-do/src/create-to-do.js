@@ -13,7 +13,7 @@ const createToDo = (newToDo, i) => {
     
         let toDoCheck = document.createElement('input')
         toDoCheck.setAttribute('type', 'checkbox')
-
+        
         let toDoName = document.createElement('p');
         toDoName.textContent = newToDo.name; 
 
@@ -115,7 +115,13 @@ const createToDo = (newToDo, i) => {
                 }
                    
                 })
+                //todo now has 5 attributes. Finished will be true or false. Same as priority. This 
+                //attribute will be changed with the clicking of the todoCheck box. If clicked it will be
+                //true and if it is not clicked it will be false. If obj is finished, the style will change
+                // to crossed out. It will look like this: On todoCheck change => change obj finished status
+                // => if status is true => change style to crossed out. if else => change style to normal. 
 
+                //finished will be a special case because it does not need to be reflected
 
 
                 let toDoDelete = document.createElement('button') //delete button
@@ -147,6 +153,37 @@ const createToDo = (newToDo, i) => {
 
         containerRight.appendChild(toDoDate)
         containerRight.appendChild(toDoMenu);
+
+        toDoCheck.addEventListener('change', () => {
+            if(toDoCheck.checked){
+                newToDo.status = true
+                console.log(newToDo.status)
+                if(newToDo.status == true){
+                toDoName.style.textDecoration = 'line-through';
+                toDoDate.style.textDecoration = 'line-through';
+                toDoName.style.opacity = '0.5';
+                toDoDate.style.opacity = '0.5';
+            } else {
+                newToDo.status = false
+                toDoName.style.textDecoration = 'none';
+                toDoDate.style.textDecoration = 'none';
+                toDoName.style.opacity = '1';
+                toDoDate.style.opacity = '1';
+            }
+        }})
+
+        if(newToDo.status == true){
+            toDoName.style.textDecoration = 'line-through';
+            toDoDate.style.textDecoration = 'line-through';
+            toDoName.style.opacity = '0.5';
+            toDoDate.style.opacity = '0.5';
+        } else {
+            newToDo.status = false
+            toDoName.style.textDecoration = 'none';
+            toDoDate.style.textDecoration = 'none';
+            toDoName.style.opacity = '1';
+            toDoDate.style.opacity = '1';
+        }
 
         container.appendChild(containerLeft);
         container.appendChild(containerRight);
