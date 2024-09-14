@@ -155,24 +155,27 @@ const createToDo = (newToDo, i) => {
         containerRight.appendChild(toDoMenu);
 
         toDoCheck.addEventListener('change', () => {
-            if(toDoCheck.checked){
+            if(toDoCheck.checked == true){
                 newToDo.status = true
                 console.log(newToDo.status)
-                if(newToDo.status == true){
                 toDoName.style.textDecoration = 'line-through';
                 toDoDate.style.textDecoration = 'line-through';
                 toDoName.style.opacity = '0.5';
                 toDoDate.style.opacity = '0.5';
             } else {
                 newToDo.status = false
+                console.log(newToDo.status)
                 toDoName.style.textDecoration = 'none';
                 toDoDate.style.textDecoration = 'none';
                 toDoName.style.opacity = '1';
                 toDoDate.style.opacity = '1';
             }
-        }})
+        })
 
+        //this block is for maintaining the to-do's crossed out if they are already finished, when adding a new
+        //to-do.
         if(newToDo.status == true){
+            toDoCheck.checked = true
             toDoName.style.textDecoration = 'line-through';
             toDoDate.style.textDecoration = 'line-through';
             toDoName.style.opacity = '0.5';
