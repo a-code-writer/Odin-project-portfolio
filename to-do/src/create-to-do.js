@@ -3,7 +3,6 @@ import { projects } from "./index.js";
 
 const createToDo = (newToDo, i) => { 
     //i was kept as a n argument to use as a unique identifier for each to-do.
-    console.log(taskList)
     let container = document.createElement('li') //container div for to-do
         container.setAttribute('code', i) 
         let containerLeft = document.createElement('div')

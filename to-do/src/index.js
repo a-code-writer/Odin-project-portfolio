@@ -16,98 +16,32 @@ function toDo(name, dueDate, priority, projParent, status){ //to-do object
     }
 }
 
-
-//project form
-let projName = document.createElement('input');
+            //project form
+let projName = document.createElement('input'); //project name input
 projName.setAttribute('placeholder', 'Project Name')
 
-let addBtn = document.createElement('button')
+let addBtn = document.createElement('button') //submits new project
 addBtn.setAttribute('type', 'submit');
 addBtn.textContent = 'Add';
 
-let cancelBtn = document.createElement('button');
+let cancelBtn = document.createElement('button'); //cancels new project
 cancelBtn.setAttribute('type', 'button')
 cancelBtn.textContent = "Cancel";
-
-//Appends to project form to DOM
-let form = document.createElement('form'); 
-form.appendChild(projName);
-form.appendChild(addBtn);
-form.appendChild(cancelBtn);
-
-//add project btn
-let projBtn = document.getElementById('add-btn')
-projBtn.addEventListener('click', () => {
-    document.getElementById('content').appendChild(form);
-   
-})
-
-
-
-//cancel button
 cancelBtn.addEventListener('click', () =>{
     form.remove();
 })
 
+let form = document.createElement('form');  //creates project form
+form.appendChild(projName);
+form.appendChild(addBtn);
+form.appendChild(cancelBtn);
 
-
-//To-do Name
-let taskNameInput = document.createElement('input') 
-taskNameInput.setAttribute('placeholder', "Task Name");
-
-//submit to-do btn
-let taskSubmit = document.createElement('button');
-taskSubmit.setAttribute('type', 'submit');
-taskSubmit.textContent = "Submit Task"
-
-//to-do cancel
-let taskCancel = document.createElement('button');
-taskCancel.textContent = "Cancel"
-taskCancel.addEventListener('click', () => {
-    taskForm.remove()
+let projBtn = document.getElementById('add-btn') //add project btn (inside html)
+projBtn.addEventListener('click', () => { //when btn is clicked, project form appears
+    document.getElementById('content').appendChild(form);
 })
 
-//to-do priority checkbox
-let taskPriority = document.createElement('input')
-taskPriority.setAttribute('type', 'checkbox')
-taskPriority.setAttribute('id', 'priority-check')
-
-//label for priority checkbox
-let taskPriorityLabel = document.createElement('label');
-taskPriorityLabel.setAttribute('for', 'priority-check')
-taskPriorityLabel.textContent = "Is this a priority task?"
-
-//to-do calender selector
-let taskDuedate = document.createElement('input')
-taskDuedate.setAttribute('type', 'date')
-
-let dueDateLabel = document.createElement('label');
-dueDateLabel.textContent = "When is this due?"
-
-let taskProject = document.createElement('select')
-let taskProjectlabel = document.createElement('label');
-taskProjectlabel.textContent = "Does this belong in a project?"
-
-
-//to-do form is assembled
-let taskForm = document.createElement('form')
-taskForm.appendChild(taskNameInput)
-taskForm.appendChild(taskPriority)
-taskForm.appendChild(taskPriorityLabel)
-taskForm.appendChild(taskDuedate)
-taskForm.appendChild(dueDateLabel)
-taskForm.appendChild(taskProject)
-taskForm.appendChild(taskProjectlabel)
-taskForm.appendChild(taskSubmit)
-taskForm.appendChild(taskCancel)
-
-//add task btn (adds to-do form to DOM)
-addTask.addEventListener('click', () => {
-    document.getElementById('content').appendChild(taskForm)
-})
-
-//submit project button
-form.addEventListener('submit', (event) => {
+form.addEventListener('submit', (event) => {//submit project button
     event.preventDefault();
     projects.push(projName.value); //add input to list
     projectsTab.innerHTML = ""; //resets sidebar content
@@ -220,7 +154,53 @@ form.addEventListener('submit', (event) => {
     form.remove()
 })
 
-//submit to-do button
+            //to-do form
+let taskNameInput = document.createElement('input')  //to-do name input
+taskNameInput.setAttribute('placeholder', "Task Name");
+
+let taskPriority = document.createElement('input') //to-do priority checkbox
+taskPriority.setAttribute('type', 'checkbox')
+taskPriority.setAttribute('id', 'priority-check')
+
+let taskPriorityLabel = document.createElement('label'); //label for priority checkbox
+taskPriorityLabel.setAttribute('for', 'priority-check')
+taskPriorityLabel.textContent = "Is this a priority task?"
+
+let taskDuedate = document.createElement('input') //to-do calender selector
+taskDuedate.setAttribute('type', 'date')
+
+let dueDateLabel = document.createElement('label'); //label for calender
+dueDateLabel.textContent = "When is this due?"
+
+let taskProject = document.createElement('select') //to-do project selector
+let taskProjectlabel = document.createElement('label');
+taskProjectlabel.textContent = "Does this belong in a project?"
+
+let taskSubmit = document.createElement('button'); //submit to-do btn
+taskSubmit.setAttribute('type', 'submit');
+taskSubmit.textContent = "Submit Task"
+
+let taskCancel = document.createElement('button'); //to-do cancel
+taskCancel.textContent = "Cancel"
+taskCancel.addEventListener('click', () => {
+    taskForm.remove()
+})
+
+let taskForm = document.createElement('form') //to-do form is assembled
+taskForm.appendChild(taskNameInput)
+taskForm.appendChild(taskPriority)
+taskForm.appendChild(taskPriorityLabel)
+taskForm.appendChild(taskDuedate)
+taskForm.appendChild(dueDateLabel)
+taskForm.appendChild(taskProject)
+taskForm.appendChild(taskProjectlabel)
+taskForm.appendChild(taskSubmit)
+taskForm.appendChild(taskCancel)
+
+addTask.addEventListener('click', () => { //puts to-do form in the DOM
+    document.getElementById('content').appendChild(taskForm)
+})
+
 taskForm.addEventListener('submit',(event)=> { //submit to-do 
     event.preventDefault();
     const newToDo = toDo(taskNameInput.value, taskDuedate.value, taskPriority.checked, taskProject.value)
@@ -236,51 +216,54 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
 })
 
 
-//setting todayTab
+        //Today tab
 document.getElementById('todayTab').addEventListener('click', () => {
     document.getElementById('content').innerHTML = "";
     const today = new Date();
-    for(let i = 0; i <= taskList.length; i++){
-        const inputDate = new Date(taskList[i].Date)
+    console.log(taskList[0])
+    for(let i = 0; i <= taskList.length; i++){  
+        const inputDate = new Date(taskList[i].dueDate);
         const timeDiff = Math.abs(today.getTime() - inputDate.getTime());
         const dayInMilliseconds = 24 * 60 * 60 * 1000;
-        if(timeDiff <= dayInMilliseconds){
-            //append all to-do's within a day to the content div
-            let container = document.createElement('li') //container div for to-do
-             container.setAttribute('code', i) 
-            let containerLeft = document.createElement('div')
-            containerLeft.setAttribute('style', 'display: flex')
-            let containerRight = document.createElement('div')
-            containerRight.setAttribute('style', 'display: flex; align-items: center')
-        
-            let toDoCheck = document.createElement('input')
-            toDoCheck.setAttribute('type', 'checkbox')
+        if(timeDiff <= dayInMilliseconds){ //checks if the difference is less than or equal to one day
+            //append all to-do's within  a day to the content div
+            console.log(taskList[i])
+            createToDo(taskList[i], i)
+        }
+    }
+})
 
-            let toDoName = document.createElement('p');
-            toDoName.textContent = taskList[i].name;
+        //all tab
+document.getElementById('allTab').addEventListener('click', () => {
+    document.getElementById('content').innerHTML = "";
+    for(let i = 0; i <= taskList.length; i++){
+        //append all to-do's within a day to the content div
+        console.log(taskList[i])
+        createToDo(taskList[i], i)
+    }
+})
 
-            let toDoDate = document.createElement('p')
-            toDoDate.textContent = taskList[i].dueDate;
+        //this week tab
+document.getElementById('thisWeekTab').addEventListener('click', () => {
+    document.getElementById('content').innerHTML = "";
+    const today = new Date();
+    console.log(taskList[0])
+    for(let i = 0; i <= taskList.length; i++){  
+        const inputDate = new Date(taskList[i].dueDate);
+        const timeDiff = Math.abs(today.getTime() - inputDate.getTime());
+        const weekInMilliseconds = 7 * 24 * 60 * 60 * 1000;
+        if(timeDiff <= weekInMilliseconds){ //checks if the difference is less than or equal to one week     
+            createToDo(taskList[i], i) //append all to-do's within  a week to the content div
+        }
+    }
+})
 
-            let borderStyle = 'border: 5px solid';
-            if (taskList[i].priority == true) {
-            borderStyle += ' red;';
-            } else {
-            borderStyle += ' black;';
-            }
-
-            containerLeft.appendChild(toDoCheck);
-            containerLeft.appendChild(toDoName);
-
-            containerRight.appendChild(toDoDate)
-            containerRight.appendChild(toDoMenu);
-
-            container.appendChild(containerLeft);
-            container.appendChild(containerRight);
-            
-            container.setAttribute('style', ` display: flex; justify-content: space-between; ${borderStyle} `);
-
-            document.getElementById('content').appendChild(container)
+        //priority tab
+document.getElementById('priorityTab').addEventListener('click', () => {
+    document.getElementById('content').innerHTML = "";
+    for(let i = 0; i <= taskList.length; i++){
+        if(taskList[i].priority == true){
+            createToDo(taskList[i], i)
         }
     }
 })
