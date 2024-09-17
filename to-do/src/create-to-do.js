@@ -20,7 +20,7 @@ const createToDo = (newToDo, i) => {
         toDoDate.textContent = newToDo.dueDate;
 
         let borderStyle = 'border: 5px solid';
-        if (newToDo.priority == true) {
+        if (newToDo.priority == 'Yes') {
           borderStyle += ' red;';
         } else {
           borderStyle += ' black;';
@@ -83,12 +83,13 @@ const createToDo = (newToDo, i) => {
                     editForm.addEventListener('submit', (event) =>{
                         event.preventDefault();
                         //code to change object's values
+                        toDoBtnsDiv.remove()
                         newToDo.name = toDoFormName.value
                         newToDo.dueDate = toDoFormDate.value
                         if(toDoFormPriority.value == "Not a Priority"){ //checks if user selected Not priority or priority and uses if statment to set prioirty status to true or falsely
-                            newToDo.priority = false;
+                            newToDo.priority = 'No';
                         } else{
-                            newToDo.priority = true;
+                            newToDo.priority = 'Yes';
                         }
                         newToDo.projParent = toDoFormProject.value
 
@@ -96,7 +97,7 @@ const createToDo = (newToDo, i) => {
                         toDoDate.textContent = newToDo.dueDate;
                         toDoName.textContent = newToDo.name;
                         let borderStyle = 'border: 5px solid';
-                        if (newToDo.priority == true) {
+                        if (newToDo.priority == 'Yes') {
                           borderStyle += ' red;';
                         } else {
                           borderStyle += ' black;';

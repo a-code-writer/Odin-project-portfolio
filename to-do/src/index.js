@@ -54,17 +54,12 @@ form.addEventListener('submit', (event) => {//submit project button
         projLi.setAttribute('index', i); //How I will be able to choose and edit specific projects
 
         projLi.addEventListener('click', () => {  //clicking on projLi will show all tasks that are related with that project
-            console.log('step')
             document.getElementById('content').innerHTML = ""; //clears content
             
-            for(let j = 0; j < taskList.length; j++){       //loops through taskList to find tasks that are related to the clicked projLi
-                if(projLi.innerText = taskList[j].projParent){
-                    console.log('step1')
-                    //have to create a new li from scratch for each task that is related to the clicked project
-                    //or store the filtered tasks in an array and then loop through array to create to-dos
-                    //storing in array might be easier because I can use the index attributes as parameters for createtoDo function
-                    //document.getElementById('content').appendChild(document.querySelector(`li[code="${j}"]`)) //clearing it beforehand soit doesn't exist anymore
-                }
+            for(let j = 0; j < taskList.length; j++){   //loops through taskList to find tasks that are related to the clicked projLi
+                if(taskList[j].projParent == projLi.innerText){
+                    createToDo(taskList[j], i)
+                }    
             }
             
         })
@@ -157,10 +152,12 @@ form.addEventListener('submit', (event) => {//submit project button
             //to-do form
 let taskNameInput = document.createElement('input')  //to-do name input
 taskNameInput.setAttribute('placeholder', "Task Name");
+taskNameInput.setAttribute('required', '');
 
-let taskPriority = document.createElement('input') //to-do priority checkbox
-taskPriority.setAttribute('type', 'checkbox')
+let taskPriority = document.createElement('select') //to-do priority checkbox
+taskPriority.innerHTML = '<option value="Yes">Priority</option><option value="No">Not A Priority</option>'
 taskPriority.setAttribute('id', 'priority-check')
+taskPriority.setAttribute('required', '')
 
 let taskPriorityLabel = document.createElement('label'); //label for priority checkbox
 taskPriorityLabel.setAttribute('for', 'priority-check')
@@ -168,6 +165,7 @@ taskPriorityLabel.textContent = "Is this a priority task?"
 
 let taskDuedate = document.createElement('input') //to-do calender selector
 taskDuedate.setAttribute('type', 'date')
+taskDuedate.setAttribute('required', '')
 
 let dueDateLabel = document.createElement('label'); //label for calender
 dueDateLabel.textContent = "When is this due?"
@@ -203,7 +201,7 @@ addTask.addEventListener('click', () => { //puts to-do form in the DOM
 
 taskForm.addEventListener('submit',(event)=> { //submit to-do 
     event.preventDefault();
-    const newToDo = toDo(taskNameInput.value, taskDuedate.value, taskPriority.checked, taskProject.value)
+    const newToDo = toDo(taskNameInput.value, taskDuedate.value, taskPriority.value, taskProject.value)
     taskList.push(newToDo);
     document.getElementById('content').innerHTML = ""
 
@@ -262,7 +260,8 @@ document.getElementById('thisWeekTab').addEventListener('click', () => {
 document.getElementById('priorityTab').addEventListener('click', () => {
     document.getElementById('content').innerHTML = "";
     for(let i = 0; i <= taskList.length; i++){
-        if(taskList[i].priority == true){
+        console.log(taskList[i].priority)
+        if(taskList[i].priority == 'Yes'){
             createToDo(taskList[i], i)
         }
     }
@@ -270,3 +269,5 @@ document.getElementById('priorityTab').addEventListener('click', () => {
 
 export default taskList
 export {projects}
+
+//whats left to do: obviously make it pretty, save feature. 
