@@ -270,4 +270,13 @@ document.getElementById('priorityTab').addEventListener('click', () => {
 export default taskList
 export {projects}
 
-//whats left to do: obviously make it pretty, save feature. 
+//whats left to do: obviously make it pretty, save feature, notes feature, expand feature
+
+//Notes feature => New input field in edit-to-do form. Also new input field in create-to-do form. Need to add
+//description key to to-do obj. On create-to-do, take input and assign as description value, use description
+//value to fill in the description in the DOM. Use Css to make the description box appear under the title.  
+
+//Edit to-do form has to be made prettier, darken background, make form into one div, center it on the screen,
+//color the save/cancel buttons etc.
+
+//
