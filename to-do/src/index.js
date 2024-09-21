@@ -279,4 +279,8 @@ export {projects}
 //Edit to-do form has to be made prettier, darken background, make form into one div, center it on the screen,
 //color the save/cancel buttons etc.
 
-//
+//border on project li's and page li's need to be spaced apart, have a border, need a color. Same for to-do
+//li's. 
+//Header div needs a profile Icon, today's date, A 'welcome back' message.  
+//All buttons have to be stylized, semi transparent, opaque, red for delete, green for submit/add. BLue for cancel
+//Font has to be changed, 
