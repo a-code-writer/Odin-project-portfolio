@@ -6,13 +6,14 @@ let taskList = [];
 let projectsTab = document.getElementById('projectsTab') //sidebar
 let addTask = document.getElementById('add-task') 
 
-function toDo(name, dueDate, priority, projParent, status){ //to-do object
+function toDo(name, dueDate, priority, projParent, status, notes){ //to-do object
     return {
         name,
         dueDate,
         priority,
         projParent , 
-        status
+        status, 
+        notes
     }
 }
 
@@ -184,6 +185,11 @@ taskCancel.addEventListener('click', () => {
     taskForm.remove()
 })
 
+let taskNotes = document.createElement('input') //todo description area
+taskNotes.setAttribute('type', 'text')
+taskNotes.setAttribute('placeholder', 'Put your description here.')
+
+
 let taskForm = document.createElement('form') //to-do form is assembled
 taskForm.appendChild(taskNameInput)
 taskForm.appendChild(taskPriority)
@@ -192,8 +198,10 @@ taskForm.appendChild(taskDuedate)
 taskForm.appendChild(dueDateLabel)
 taskForm.appendChild(taskProject)
 taskForm.appendChild(taskProjectlabel)
+taskForm.appendChild(taskNotes)
 taskForm.appendChild(taskSubmit)
 taskForm.appendChild(taskCancel)
+
 
 addTask.addEventListener('click', () => { //puts to-do form in the DOM
     document.getElementById('content').appendChild(taskForm)
@@ -201,7 +209,7 @@ addTask.addEventListener('click', () => { //puts to-do form in the DOM
 
 taskForm.addEventListener('submit',(event)=> { //submit to-do 
     event.preventDefault();
-    const newToDo = toDo(taskNameInput.value, taskDuedate.value, taskPriority.value, taskProject.value)
+    const newToDo = toDo(taskNameInput.value, taskDuedate.value, taskPriority.value, taskProject.value, taskNotes.value)
     taskList.push(newToDo);
     document.getElementById('content').innerHTML = ""
 
@@ -284,3 +292,5 @@ export {projects}
 //Header div needs a profile Icon, today's date, A 'welcome back' message.  
 //All buttons have to be stylized, semi transparent, opaque, red for delete, green for submit/add. BLue for cancel
 //Font has to be changed, 
+
+//first add, notes feature, 
