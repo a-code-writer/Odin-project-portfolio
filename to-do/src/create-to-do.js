@@ -18,7 +18,11 @@ const createToDo = (newToDo, i) => {
         toDoName.addEventListener('click', () =>{ //on clicking the p element, the notes section will be appended to the bottom of the to-do
             let toDoNotes = document.createElement('textarea')
             toDoNotes.textContent = newToDo.notes;
-            container.appendChild(toDoNotes)
+            if(!container.nextElementSibling || container.nextElementSibling.tagName !== "TEXTAREA" && container.nextElementSibling.tagName !== "DIV"){
+                document.getElementById('content').insertBefore(toDoNotes, container.nextElementSibling)
+            }
+            
+
         })
 
         let toDoDate = document.createElement('p')

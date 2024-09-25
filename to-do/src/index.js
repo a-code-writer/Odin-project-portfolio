@@ -208,13 +208,15 @@ addTask.addEventListener('click', () => { //puts to-do form in the DOM
 })
 
 taskForm.addEventListener('submit',(event)=> { //submit to-do 
+    let status = "Pending"
     event.preventDefault();
-    const newToDo = toDo(taskNameInput.value, taskDuedate.value, taskPriority.value, taskProject.value, taskNotes.value)
+    const newToDo = toDo(taskNameInput.value, taskDuedate.value, taskPriority.value, taskProject.value, status, taskNotes.value)
     taskList.push(newToDo);
     document.getElementById('content').innerHTML = ""
 
     //use list to create DOM to-do elements
     for(let i = 0; i < taskList.length; i++){
+        console.log(taskList[i])
         createToDo(taskList[i], i)
     }
 
