@@ -164,6 +164,11 @@ let taskPriorityLabel = document.createElement('label'); //label for priority ch
 taskPriorityLabel.setAttribute('for', 'priority-check')
 taskPriorityLabel.textContent = "Is this a priority task?"
 
+let toDoFormPriorityDiv = document.createElement('div')
+toDoFormPriorityDiv.appendChild(taskPriorityLabel)
+toDoFormPriorityDiv.appendChild(taskPriority)
+
+
 let taskDuedate = document.createElement('input') //to-do calender selector
 taskDuedate.setAttribute('type', 'date')
 taskDuedate.setAttribute('required', '')
@@ -171,9 +176,17 @@ taskDuedate.setAttribute('required', '')
 let dueDateLabel = document.createElement('label'); //label for calender
 dueDateLabel.textContent = "When is this due?"
 
+let toDoFormDueDateDiv = document.createElement('div')
+toDoFormDueDateDiv.appendChild(dueDateLabel)
+toDoFormDueDateDiv.appendChild(taskDuedate)
+
 let taskProject = document.createElement('select') //to-do project selector
 let taskProjectlabel = document.createElement('label');
 taskProjectlabel.textContent = "Does this belong in a project?"
+
+let toDoFormProjectDiv = document.createElement('div')
+toDoFormProjectDiv.appendChild(taskProjectlabel)
+toDoFormProjectDiv.appendChild(taskProject)
 
 let taskSubmit = document.createElement('button'); //submit to-do btn
 taskSubmit.setAttribute('type', 'submit');
@@ -185,6 +198,10 @@ taskCancel.addEventListener('click', () => {
     taskForm.remove()
 })
 
+let toDoFormSubmitCancelDiv = document.createElement('div')
+toDoFormSubmitCancelDiv.appendChild(taskSubmit)
+toDoFormSubmitCancelDiv.appendChild(taskCancel)
+
 let taskNotes = document.createElement('input') //todo description area
 taskNotes.setAttribute('type', 'text')
 taskNotes.setAttribute('placeholder', 'Put your description here.')
@@ -192,19 +209,16 @@ taskNotes.setAttribute('placeholder', 'Put your description here.')
 
 let taskForm = document.createElement('form') //to-do form is assembled
 taskForm.appendChild(taskNameInput)
-taskForm.appendChild(taskPriority)
-taskForm.appendChild(taskPriorityLabel)
-taskForm.appendChild(taskDuedate)
-taskForm.appendChild(dueDateLabel)
-taskForm.appendChild(taskProject)
-taskForm.appendChild(taskProjectlabel)
+taskForm.appendChild(toDoFormPriorityDiv)
+taskForm.appendChild(toDoFormDueDateDiv)
+taskForm.appendChild(toDoFormProjectDiv)
 taskForm.appendChild(taskNotes)
-taskForm.appendChild(taskSubmit)
-taskForm.appendChild(taskCancel)
+taskForm.appendChild(toDoFormSubmitCancelDiv)
 
 
 addTask.addEventListener('click', () => { //puts to-do form in the DOM
     document.getElementById('content').appendChild(taskForm)
+    taskForm.style.justifySelf = 'center'
 })
 
 taskForm.addEventListener('submit',(event)=> { //submit to-do 
@@ -280,19 +294,3 @@ document.getElementById('priorityTab').addEventListener('click', () => {
 export default taskList
 export {projects}
 
-//whats left to do: obviously make it pretty, save feature, notes feature, expand feature
-
-//Notes feature => New input field in edit-to-do form. Also new input field in create-to-do form. Need to add
-//description key to to-do obj. On create-to-do, take input and assign as description value, use description
-//value to fill in the description in the DOM. Use Css to make the description box appear under the title.  
-
-//Edit to-do form has to be made prettier, darken background, make form into one div, center it on the screen,
-//color the save/cancel buttons etc.
-
-//border on project li's and page li's need to be spaced apart, have a border, need a color. Same for to-do
-//li's. 
-//Header div needs a profile Icon, today's date, A 'welcome back' message.  
-//All buttons have to be stylized, semi transparent, opaque, red for delete, green for submit/add. BLue for cancel
-//Font has to be changed, 
-
-//first add, notes feature, 

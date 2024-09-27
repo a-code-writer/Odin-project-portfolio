@@ -10,11 +10,15 @@ const createToDo = (newToDo, i) => {
         let containerRight = document.createElement('div')
         containerRight.setAttribute('style', 'display: flex; align-items: center')
     
+        //TO-DO CHECKBOX
         let toDoCheck = document.createElement('input')
         toDoCheck.setAttribute('type', 'checkbox')
         
+        //TO-DO NAME ELEMENT
         let toDoName = document.createElement('p');
         toDoName.textContent = newToDo.name; 
+
+        //TO-DO NOTES ELEMENT
         let toDoNotes = document.createElement('textarea')
         toDoNotes.textContent = newToDo.notes;
         toDoName.addEventListener('click', () =>{ //on clicking the p element, the notes section will be appended to the bottom of the to-do
@@ -25,14 +29,13 @@ const createToDo = (newToDo, i) => {
                 console.log('removing notes')
                 toDoNotes.remove()
             } 
-
-            
-
         })
 
+        //TO-DO DATE ELEMENT
         let toDoDate = document.createElement('p')
         toDoDate.textContent = newToDo.dueDate;
 
+        //BORDER FOR TO-DO, CHANGES BASED OFF PRIORITY
         let borderStyle = 'border: 5px solid';
         if (newToDo.priority == 'Yes') {
           borderStyle += ' red;';
@@ -40,18 +43,19 @@ const createToDo = (newToDo, i) => {
           borderStyle += ' black;';
         }
 
-
+        //3 DOTS AT END OF TO-DO
         let toDoMenu = document.createElement('img');
         toDoMenu.setAttribute('src', '../3-dots.png') 
         toDoMenu.setAttribute('style', 'max-height: 20px; max-width: 20px')
         toDoMenu.setAttribute('index', i)
         toDoMenu.addEventListener('click', () => {
-            if(!container.nextElementSibling || container.nextElementSibling.tagName !== "FORM" && container.nextElementSibling.tagName !== "DIV"){
+            if(!container.nextElementSibling || container.nextElementSibling.tagName !== "FORM" && container.nextElementSibling.tagName !== "DIV"){ //CHECKS FOR DUPLICATES
                 let toDoBtnsDiv = document.createElement('div') //div which will contain all 3 menu btns for to-do
                 toDoBtnsDiv.setAttribute('code', i)
                 toDoBtnsDiv.setAttribute('style', 'display: flex; justify-content: end;')
 
-                let toDoEdit = document.createElement('button') //edit button
+                //UPDATE TO-DO BUTTON
+                let toDoEdit = document.createElement('button') 
                 toDoEdit.textContent = "Edit"
                 toDoEdit.addEventListener('click', () => {
                     if(!container.nextElementSibling || container.nextElementSibling.tagName !== "FORM"){ //checks to see if the next element after container is a form. if not it appends the to-do update form to the bottom of the to-do content container div
@@ -63,19 +67,21 @@ const createToDo = (newToDo, i) => {
                     let toDoFormProject = document.createElement('select')
                     toDoFormProject.textContent = 'Is this part of a project?'
                     toDoFormProject.innerHTML = '<option></option>';
-                   projects.forEach(project => {
-                    const option = document.createElement('option');
-                    option.text = project;
-                    option.value = project;
-                    toDoFormProject.appendChild(option);
+                    projects.forEach(project => {
+                        const option = document.createElement('option');
+                        option.text = project;
+                        option.value = project;
+                        toDoFormProject.appendChild(option);
                     })
 
                     let toDoFormPriority = document.createElement('select')
                     toDoFormPriority.innerHTML = '<option>Priority</option> <option>Not a Priority</option>'
                     
-
                     let toDoFormDate = document.createElement('input')
                     toDoFormDate.setAttribute('type', 'date');
+
+                    let toDoFormNotes = document.createElement('input')
+                    toDoFormNotes.setAttribute('placeholder', 'Set New Task Notes Here');
 
                     let toDoFormSubmit = document.createElement('button')
                     toDoFormSubmit.textContent = 'Submit'
@@ -87,16 +93,18 @@ const createToDo = (newToDo, i) => {
                         editForm.remove();
                     });
 
+                    //TO-DO UPDATE FORM
                     editForm.appendChild(toDoFormName)
                     editForm.appendChild(toDoFormDate)
                     editForm.appendChild(toDoFormPriority)
                     editForm.appendChild(toDoFormProject)
+                    editForm.appendChild(toDoFormNotes)
                     editForm.appendChild(toDoFormSubmit)
                     editForm.appendChild(toDoFormCancel)
 
                     editForm.addEventListener('submit', (event) =>{
                         event.preventDefault();
-                        //code to change object's values
+                        //CHANGING OBJECT VALUES
                         toDoBtnsDiv.remove()
                         newToDo.name = toDoFormName.value
                         newToDo.dueDate = toDoFormDate.value
@@ -106,8 +114,9 @@ const createToDo = (newToDo, i) => {
                             newToDo.priority = 'Yes';
                         }
                         newToDo.projParent = toDoFormProject.value
+                        newToDo.notes = toDoFormNotes.value
 
-                        //code to change the DOM values
+                        //USING NEW OBJECT VALUES TO CHANGE DOM VALUES
                         toDoDate.textContent = newToDo.dueDate;
                         toDoName.textContent = newToDo.name;
                         let borderStyle = 'border: 5px solid';
@@ -116,6 +125,12 @@ const createToDo = (newToDo, i) => {
                         } else {
                           borderStyle += ' black;';
                         }
+                        if(toDoFormNotes.value == ""){
+                            return;
+                        }else{
+                            toDoNotes.textContent = newToDo.notes;
+                        }
+                        
 
                         container.setAttribute('style', `${borderStyle}`)
                        //<li> border to indicate priority level. Will do this
@@ -129,15 +144,10 @@ const createToDo = (newToDo, i) => {
                 }
                    
                 })
-                //todo now has 5 attributes. Finished will be true or false. Same as priority. This 
-                //attribute will be changed with the clicking of the todoCheck box. If clicked it will be
-                //true and if it is not clicked it will be false. If obj is finished, the style will change
-                // to crossed out. It will look like this: On todoCheck change => change obj finished status
-                // => if status is true => change style to crossed out. if else => change style to normal. 
 
                 //finished will be a special case because it does not need to be reflected
 
-
+                //DELETE BUTTON
                 let toDoDelete = document.createElement('button') //delete button
                 toDoDelete.textContent = "Delete";
                 toDoDelete.addEventListener('click', () => {
@@ -146,7 +156,7 @@ const createToDo = (newToDo, i) => {
                     document.querySelector(`div[code="${i}"]`).remove()
                 })
 
-
+                //CANCEL BUTTON
                 let toDoCancel = document.createElement('button')
                 toDoCancel.textContent = 'Cancel'
                 toDoCancel.addEventListener('click', () => {
@@ -154,7 +164,7 @@ const createToDo = (newToDo, i) => {
                 })
                 
                 
-                
+                //3 DOTS MENU
                 toDoBtnsDiv.appendChild(toDoEdit)
                 toDoBtnsDiv.appendChild(toDoDelete)
                 toDoBtnsDiv.appendChild(toDoCancel)

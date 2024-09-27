@@ -2,7 +2,6 @@ body, html{
     margin: 0;
     padding: 0;
     min-height: 100%;
-    overflow: hidden;
 }
 
 #header{
@@ -27,7 +26,7 @@ body, html{
 
 #content{
     width:80vw;
-    background-color: whitesmoke;
+    background-color: rgb(238, 236, 236);
 }
 
 .to-do{
@@ -47,10 +46,22 @@ li{
 li{
     display: flex;
     justify-content: space-between;
+    border-radius:10px
 }
 
 form{
     display: flex;
     align-items: flex-start;
     flex-direction: column;
+    gap:10px;
+}
+
+#sidebar-button{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+*{
+    font-family:'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
