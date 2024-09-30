@@ -6,13 +6,32 @@ const createToDo = (newToDo, i) => {
     let container = document.createElement('li') //container div for to-do
         container.setAttribute('code', i) 
         let containerLeft = document.createElement('div')
-        containerLeft.setAttribute('style', 'display: flex')
+        containerLeft.setAttribute('style', 'display: flex; gap: 5px; margin-left: 5px')
         let containerRight = document.createElement('div')
         containerRight.setAttribute('style', 'display: flex; align-items: center')
     
         //TO-DO CHECKBOX
-        let toDoCheck = document.createElement('input')
-        toDoCheck.setAttribute('type', 'checkbox')
+        let toDoCheck = document.createElement('img')
+        toDoCheck.setAttribute('src', './unchecked.png')
+        toDoCheck.setAttribute('style', 'max-height: 20px; max-width: 20px; align-self: center')
+        toDoCheck.setAttribute('index', i)
+        toDoCheck.addEventListener('click', () => {
+            if(toDoCheck.getAttribute('src') == './unchecked.png'){
+                toDoCheck.setAttribute('src', './checked.png')
+                newToDo.status = true
+                toDoName.style.textDecoration = 'line-through';
+                toDoDate.style.textDecoration = 'line-through';
+                toDoName.style.opacity = '0.5';
+                toDoDate.style.opacity = '0.5';
+            } else {
+                toDoCheck.setAttribute('src', './unchecked.png')
+                newToDo.status = false
+                toDoName.style.textDecoration = 'none';
+                toDoDate.style.textDecoration = 'none';
+                toDoName.style.opacity = '1';
+                toDoDate.style.opacity = '1';
+            }
+        })
         
         //TO-DO NAME ELEMENT
         let toDoName = document.createElement('p');
@@ -36,7 +55,7 @@ const createToDo = (newToDo, i) => {
         toDoDate.textContent = newToDo.dueDate;
 
         //BORDER FOR TO-DO, CHANGES BASED OFF PRIORITY
-        let borderStyle = 'border: 5px solid';
+        let borderStyle = 'border-left: 5px solid';
         if (newToDo.priority == 'Yes') {
           borderStyle += ' red;';
         } else {
@@ -177,24 +196,6 @@ const createToDo = (newToDo, i) => {
 
         containerRight.appendChild(toDoDate)
         containerRight.appendChild(toDoMenu);
-
-        toDoCheck.addEventListener('change', () => {
-            if(toDoCheck.checked == true){
-                newToDo.status = true
-                console.log(newToDo.status)
-                toDoName.style.textDecoration = 'line-through';
-                toDoDate.style.textDecoration = 'line-through';
-                toDoName.style.opacity = '0.5';
-                toDoDate.style.opacity = '0.5';
-            } else {
-                newToDo.status = false
-                console.log(newToDo.status)
-                toDoName.style.textDecoration = 'none';
-                toDoDate.style.textDecoration = 'none';
-                toDoName.style.opacity = '1';
-                toDoDate.style.opacity = '1';
-            }
-        })
 
         //this block is for maintaining the to-do's crossed out if they are already finished, when adding a new
         //to-do.
