@@ -51,6 +51,7 @@ form.addEventListener('submit', (event) => {//submit project button
     for(let i = 0; i < projects.length; i++){ //adds all current projects in array to sidebar
         
         let projLi = document.createElement('li') 
+        projLi.setAttribute('class', 'active-tab')
         projLi.innerText = projects[i] 
         projLi.setAttribute('index', i); //How I will be able to choose and edit specific projects
 

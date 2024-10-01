@@ -36,6 +36,12 @@ body, html{
 
 li{
     list-style-type: none;
+    transition: font-size 0.5s ease;
+}
+
+li.active-tab:hover{
+    cursor: pointer;
+    font-size: 20px;
 }
 
 #sidebar-first{
