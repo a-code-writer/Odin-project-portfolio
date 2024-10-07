@@ -6,6 +6,17 @@ let taskList = [];
 let projectsTab = document.getElementById('projectsTab') //sidebar
 let addTask = document.getElementById('add-task') 
 
+window.onload = () => {
+    console.log("window loaded")
+    let storedProj = localStorage.getItem('projects')
+    let listOfObjects = JSON.parse(storedProj);
+    for(let i = 0; i < listOfObjects.length; i++){
+        console.log(listOfObjects[i])
+        document.getElementById('projectsTab').innerHTML(listOfObjects[i])
+}
+
+}
+
 function toDo(name, dueDate, priority, projParent, status, notes){ //to-do object
     return {
         name,
@@ -148,6 +159,8 @@ form.addEventListener('submit', (event) => {//submit project button
         taskProject.appendChild(option);
     })
 
+     localStorage.setItem('projects', JSON.stringify(projects)); 
+
     form.remove()
 })
 
@@ -231,12 +244,17 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
 
     //use list to create DOM to-do elements
     for(let i = 0; i < taskList.length; i++){
+        console.log(taskList)
         console.log(taskList[i])
         createToDo(taskList[i], i)
+        localStorage.setItem('taskList', JSON.stringify(taskList[i]))
     }
+
 
     taskForm.remove()
 })
+
+
 
 
         //Today tab
@@ -295,3 +313,12 @@ document.getElementById('priorityTab').addEventListener('click', () => {
 export default taskList
 export {projects}
 
+
+//need a function to save projects and to-do's to local storage every time one is created.
+//Also need a function to search local storage for saved projs and to-dos.
+
+//Off the top of my head it seems like the function for storing should be implemented inside of 
+//submit proj/to-do buttons. Like on submit => create proj/to-do and store it.
+
+//So the second function should be called when the page loads right?
+//On searching, if there is nothing there, it shouldnt crash
