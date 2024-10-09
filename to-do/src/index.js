@@ -1,4 +1,5 @@
 import createToDo from "./create-to-do";
+import createProject from "./create-project";
 
 
 let projects = [];
@@ -6,16 +7,7 @@ let taskList = [];
 let projectsTab = document.getElementById('projectsTab') //sidebar
 let addTask = document.getElementById('add-task') 
 
-window.onload = () => {
-    console.log("window loaded")
-    let storedProj = localStorage.getItem('projects')
-    let listOfObjects = JSON.parse(storedProj);
-    for(let i = 0; i < listOfObjects.length; i++){
-        console.log(listOfObjects[i])
-        document.getElementById('projectsTab').innerHTML(listOfObjects[i])
-}
 
-}
 
 function toDo(name, dueDate, priority, projParent, status, notes){ //to-do object
     return {
@@ -55,113 +47,8 @@ projBtn.addEventListener('click', () => { //when btn is clicked, project form ap
 
 form.addEventListener('submit', (event) => {//submit project button
     event.preventDefault();
-    projects.push(projName.value); //add input to list
-    projectsTab.innerHTML = ""; //resets sidebar content
-    
-
-    for(let i = 0; i < projects.length; i++){ //adds all current projects in array to sidebar
-        
-        let projLi = document.createElement('li') 
-        projLi.setAttribute('class', 'active-tab')
-        projLi.innerText = projects[i] 
-        projLi.setAttribute('index', i); //How I will be able to choose and edit specific projects
-
-        projLi.addEventListener('click', () => {  //clicking on projLi will show all tasks that are related with that project
-            document.getElementById('content').innerHTML = ""; //clears content
-            
-            for(let j = 0; j < taskList.length; j++){   //loops through taskList to find tasks that are related to the clicked projLi
-                if(taskList[j].projParent == projLi.innerText){
-                    createToDo(taskList[j], i)
-                }    
-            }
-            
-        })
-
-        let menu = document.createElement('img'); //3 dots at end of project div
-        menu.setAttribute('src', '../3-dots.png')
-        menu.setAttribute('index', i) //making sure each menu button corresponds to its matching project
-        menu.addEventListener('click', () => {
-            let adjLi = document.querySelector(`li[index="${i}"]`)//adjLi is the corresponding project
-            if(!adjLi.nextElementSibling || adjLi.nextElementSibling.tagName !== "DIV"){ //checks if projLi has div sibling already
-                let menuBtns = document.createElement('div');// all buttons will be stored in a seperate div
-                menuBtns.setAttribute('index', i)
-
-                //inside menu button
-                let editBtn = document.createElement('button')
-                editBtn.innerText = "Edit";
-                editBtn.addEventListener('click', () => {
-                    let editProjForm = document.createElement('form');
-                    let updateBtn = document.createElement('button')
-                    let cancelNameBtn = document.createElement('button')
-
-                    updateBtn.textContent = "Update";
-                    updateBtn.setAttribute("type", "submit")
-                    cancelNameBtn.textContent = "Cancel"
-
-                    //button inside of Edit button
-                    cancelNameBtn.addEventListener("click", () => {
-                        editProjForm.remove()
-                    })
-
-                    //inside of edit button, will change the projects Name
-                    let updateNameInput = document.createElement('input')
-                    updateNameInput.setAttribute('placeholder', "Updated name")
-
-                    editProjForm.appendChild(updateBtn);
-                    editProjForm.appendChild(cancelNameBtn);
-                    editProjForm.appendChild(updateNameInput);
-                    editProjForm.addEventListener('submit', (event) => {
-                        event.preventDefault();
-                        projects[i] = updateNameInput.value;
-                        adjLi.textContent = updateNameInput.value
-                        projLi.appendChild(menu)
-                    })
-                    menuBtns.remove()
-                    projectsTab.insertBefore(editProjForm, adjLi.nextElementSibling)
-                })
-
-                //inside of menu button
-                let deleteBtn = document.createElement('button')
-                deleteBtn.innerText = 'Delete';
-                deleteBtn.addEventListener('click', () => {
-                    projects.splice(i)
-                    document.querySelector(`li[index="${i}"]`).remove()
-                    document.querySelector(`div[index="${i}"]`).remove()
-                })
-
-                //inside of menu button
-                let cancelbutton = document.createElement('button');
-                cancelbutton.innerText = 'Cancel'
-                cancelbutton.addEventListener('click', () =>{
-                    document.querySelector(`div[index="${i}"]`).remove()
-                })
-
-                //buttons put inside of div
-                menuBtns.appendChild(editBtn)
-                menuBtns.appendChild(deleteBtn)
-                menuBtns.appendChild(cancelbutton);
-                
-                //button div is added before current projects next sibling ie: right after it   
-                projectsTab.insertBefore(menuBtns, adjLi.nextSibling) 
-            }
-        })
-
-        projLi.appendChild(menu)
-        projectsTab.appendChild(projLi)
-    }
-
-    //adding project options to the to-do form(dropdown menu)
-    taskProject.innerHTML = '<option></option>';
-    projects.forEach(project => {
-        const option = document.createElement('option');
-        option.text = project;
-        option.value = project;
-        taskProject.appendChild(option);
-    })
-
-     localStorage.setItem('projects', JSON.stringify(projects)); 
-
-    form.remove()
+    localStorage.setItem('projects', JSON.stringify(projects[0]))
+    createProject()
 })
 
             //to-do form
@@ -247,13 +134,51 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
         console.log(taskList)
         console.log(taskList[i])
         createToDo(taskList[i], i)
-        localStorage.setItem('taskList', JSON.stringify(taskList[i]))
+        
+        //clear localStorage 'tasklist'
+        //foreach thru list -> setItem as 'object_X' using to-do.name as x -> key = json.stringify
     }
+
+    taskList.forEach(function(todo) {
+        localStorage.setItem('task_' + todo.name, JSON.stringify(todo))
+    })
 
 
     taskForm.remove()
 })
 
+
+//when page loads, to-dos are loaded
+window.onload = () => { 
+    //to-do part
+    localStorage.clear()
+    let storedToDos = localStorage.getItem('taskList'); //retrieves to-do from local storage
+    let listOfToDos = JSON.parse(storedToDos); //parses to-do
+    let arrayOfToDos = []; //empty array for retrieved to-dos to be placed in
+    arrayOfToDos.push(listOfToDos) //adds to-do to array
+    
+    if (localStorage.length == 0) {
+        console.log('no to-dos')
+    // }else{
+    //     for(let i = 0; i < arrayOfToDos.length; i++){ //loops through to-do array using createToDo function
+    //         createToDo(arrayOfToDos[i], i) 
+    //         console.log('hello')
+    // }
+    
+}
+
+    //project part
+    let storedProjects = localStorage.getItem('projects'); //retrieves project from local storage
+    let listOfProjects = JSON.parse(storedProjects); //parses project
+    let arrayOfProjects = []; //empty array for retrieved projects to be placed in
+    arrayOfProjects.push(listOfProjects) //adds project to array
+    
+    for(let i = 0; i < arrayOfProjects.length; i++){ //loops through project array using createProject function
+        createProject(arrayOfProjects[i], i) 
+    }
+
+
+}
 
 
 
@@ -311,14 +236,31 @@ document.getElementById('priorityTab').addEventListener('click', () => {
 })
 
 export default taskList
-export {projects}
+export {projects, addTask, projName, taskProject, form, taskList}
 
 
-//need a function to save projects and to-do's to local storage every time one is created.
-//Also need a function to search local storage for saved projs and to-dos.
+//I have to create my todos and projs from localstorage only basically because if I don't the code
+//is just going to clear the content and it will only create the to-do's that are made during the current
+//session. The stored to-dos are populating only on the initial pageload, after creating a new one, the 
+//content is cleared via createtodo.js and then the only todos being created are the ones in taskList.
 
-//Off the top of my head it seems like the function for storing should be implemented inside of 
-//submit proj/to-do buttons. Like on submit => create proj/to-do and store it.
+//So either change my createToDo.js code to source from localstorage and on submit store the todos in local
+//and create any new todos from there, or, I retroactively add any old todos already in localstorage from
+//any previous sessions and add them to the taskList on submit if they;re not already there.
 
-//So the second function should be called when the page loads right?
-//On searching, if there is nothing there, it shouldnt crash
+//I think that the second option is better. Adding to-dos from local to taskList, shouldnt be too bad.
+//It just means that on submit of a new to-do. I have to look at local storage, parse the objects, and
+//push them to the taskList.
+
+//but first the other problem = populating the DOM on the initial load with previous to-dos and projs.
+//and storing them in localstorage
+
+//THe problem is that it's not using all of the to-dos and projs that are stored in localstorage, just the
+//last one in the list
+
+//so other people are using localstorage to store both their to-dos and projs. WHat I saw in one of them
+//was that they used arrays to store both to-dos and projs. whta was key was that objs used the identifier
+//'dataproject: 0' as markers that they are to-dos while arrays used 'dataproject: 1'. Now the question 
+//becomes how do I add those markers to the objs?
+
+//I add them on submit? 
