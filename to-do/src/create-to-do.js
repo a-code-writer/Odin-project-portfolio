@@ -42,10 +42,8 @@ const createToDo = (newToDo, i) => {
         toDoNotes.textContent = newToDo.notes;
         toDoName.addEventListener('click', () =>{ //on clicking the p element, the notes section will be appended to the bottom of the to-do
             if(!container.nextElementSibling || container.nextElementSibling.tagName !== "TEXTAREA" && container.nextElementSibling.tagName !== "DIV" && container.nextElementSibling.tagName !== "FORM"){ //check if there is already a notes section, no duplicates
-                console.log('adding notes')
                 document.getElementById('content').insertBefore(toDoNotes, container.nextElementSibling)
             } else if(container.nextElementSibling.tagName === "TEXTAREA"){ //if there is already a notes section, remove it
-                console.log('removing notes')
                 toDoNotes.remove()
             } 
         })

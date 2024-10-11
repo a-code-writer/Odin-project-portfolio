@@ -1,6 +1,7 @@
 import { projects, projName, taskProject, form, taskList } from "./index.js";
 
 function createProject() {
+    if(projName.value == "") return; //stops index.js onLoad Project part from making empty projects, but now the onload doesnt load any projects 
     projects.push(projName.value); //add input to list
     projectsTab.innerHTML = ""; //resets sidebar content
     

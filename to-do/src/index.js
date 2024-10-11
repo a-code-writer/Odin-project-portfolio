@@ -47,7 +47,7 @@ projBtn.addEventListener('click', () => { //when btn is clicked, project form ap
 
 form.addEventListener('submit', (event) => {//submit project button
     event.preventDefault();
-    localStorage.setItem('projects', JSON.stringify(projects[0]))
+    localStorage.setItem('projects', JSON.stringify(projects))
     createProject()
 })
 
@@ -139,9 +139,7 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
         //foreach thru list -> setItem as 'object_X' using to-do.name as x -> key = json.stringify
     }
 
-    taskList.forEach(function(todo) {
-        localStorage.setItem('task_' + todo.name, JSON.stringify(todo))
-    })
+    localStorage.setItem('taskList', JSON.stringify(taskList))
 
 
     taskForm.remove()
@@ -151,34 +149,40 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
 //when page loads, to-dos are loaded
 window.onload = () => { 
     //to-do part
-    localStorage.clear()
-    let storedToDos = localStorage.getItem('taskList'); //retrieves to-do from local storage
-    let listOfToDos = JSON.parse(storedToDos); //parses to-do
-    let arrayOfToDos = []; //empty array for retrieved to-dos to be placed in
-    arrayOfToDos.push(listOfToDos) //adds to-do to array
-    
-    if (localStorage.length == 0) {
+    // localStorage.clear()
+    let storedToDos = localStorage.getItem('taskList'); //retrieves to-do list from local storage
+    if (storedToDos) { //checks if to-do list is not empty
+    let listOfToDos = JSON.parse(storedToDos); //parses to-do list
+    document.getElementById('content').innerHTML = "" //gets rid of the default text
+    console.log(listOfToDos)
+    listOfToDos.forEach(toDo => {
+        createToDo(toDo, listOfToDos.indexOf(toDo))
+    })
+    } else{
         console.log('no to-dos')
-    // }else{
-    //     for(let i = 0; i < arrayOfToDos.length; i++){ //loops through to-do array using createToDo function
-    //         createToDo(arrayOfToDos[i], i) 
-    //         console.log('hello')
-    // }
+    }
+    
     
 }
 
     //project part
+    //localStorage.clear()
     let storedProjects = localStorage.getItem('projects'); //retrieves project from local storage
+    if (storedProjects) {
     let listOfProjects = JSON.parse(storedProjects); //parses project
-    let arrayOfProjects = []; //empty array for retrieved projects to be placed in
-    arrayOfProjects.push(listOfProjects) //adds project to array
-    
-    for(let i = 0; i < arrayOfProjects.length; i++){ //loops through project array using createProject function
-        createProject(arrayOfProjects[i], i) 
+    console.log(listOfProjects) 
+    console.log(projects)
+    listOfProjects.forEach(project => {
+        projects.push(project)
+    })
+    console.log(projects)  
+        
+    createProject()
+    } else {
+        console.log('no projects')
     }
 
 
-}
 
 
 
@@ -239,28 +243,30 @@ export default taskList
 export {projects, addTask, projName, taskProject, form, taskList}
 
 
-//I have to create my todos and projs from localstorage only basically because if I don't the code
-//is just going to clear the content and it will only create the to-do's that are made during the current
-//session. The stored to-dos are populating only on the initial pageload, after creating a new one, the 
-//content is cleared via createtodo.js and then the only todos being created are the ones in taskList.
+//I have a new problem. How do I retrieve projects from localstorage and 
+//add them to the DOM?
 
-//So either change my createToDo.js code to source from localstorage and on submit store the todos in local
-//and create any new todos from there, or, I retroactively add any old todos already in localstorage from
-//any previous sessions and add them to the taskList on submit if they;re not already there.
+//I have it figured out for to-do's, projects are different though.
+//The issue comes from how the create-project function works.
+//createProject() has no parameters. The code inside accesses the projects array
+//and loops through it creating projects and appending them to the DOM
+//However before any of that creation it first takes the value of the projName input field.
+//This is no issue when the submit project button is clicked because when it is clicked the 
+//projName input field will always be filled. Hwoever I am attempting to create projects when the
+//window in loading for the first time (onload) this creates a problem because at this time the
+//input field 'projName' has a value of "" which the createProject() function takes and uses to
+//create an empty project, resulting in these blank <li> elements which I have been seeing.
+//I attempted to solve this by inserting an if statement in the beginning of the function which 
+//read (if projName.value == ""){return}. This would stop the creation of any projects with 
+//an empty title, however this also created another problem. Now there are no projects being created
+//at all. Once the condition of the if statement is met, the rest of the function will not run, meaning
+// that it will not loop thru the projects array and create any projects in the DOM. I thiught of 
+//countering this by rewriting the createProject() function to mimic how the creattodo() function
+//works. But I dont know if thats the right way to do it. The to-dos are working fine. All todos stored
+// in localstorage are being created.
 
-//I think that the second option is better. Adding to-dos from local to taskList, shouldnt be too bad.
-//It just means that on submit of a new to-do. I have to look at local storage, parse the objects, and
-//push them to the taskList.
+//however todos are objects and projects are arrays. 
 
-//but first the other problem = populating the DOM on the initial load with previous to-dos and projs.
-//and storing them in localstorage
-
-//THe problem is that it's not using all of the to-dos and projs that are stored in localstorage, just the
-//last one in the list
-
-//so other people are using localstorage to store both their to-dos and projs. WHat I saw in one of them
-//was that they used arrays to store both to-dos and projs. whta was key was that objs used the identifier
-//'dataproject: 0' as markers that they are to-dos while arrays used 'dataproject: 1'. Now the question 
-//becomes how do I add those markers to the objs?
-
-//I add them on submit? 
+//I need to figure out how to make the projects that have a title, while also skipping the ones with "" as
+//the title. Maybe a for loop would work?. for(item in projects){ if(item.title == ""){create project}else{
+//return} Instead of doing for(projects.length) add an if statment after that skips the ones with "" as the title.
