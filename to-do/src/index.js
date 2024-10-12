@@ -48,6 +48,7 @@ projBtn.addEventListener('click', () => { //when btn is clicked, project form ap
 form.addEventListener('submit', (event) => {//submit project button
     event.preventDefault();
     localStorage.setItem('projects', JSON.stringify(projects))
+    projects.push(projName.value);
     createProject()
 })
 
@@ -134,9 +135,6 @@ taskForm.addEventListener('submit',(event)=> { //submit to-do
         console.log(taskList)
         console.log(taskList[i])
         createToDo(taskList[i], i)
-        
-        //clear localStorage 'tasklist'
-        //foreach thru list -> setItem as 'object_X' using to-do.name as x -> key = json.stringify
     }
 
     localStorage.setItem('taskList', JSON.stringify(taskList))
@@ -160,9 +158,7 @@ window.onload = () => {
     })
     } else{
         console.log('no to-dos')
-    }
-    
-    
+    }  
 }
 
     //project part
@@ -170,13 +166,9 @@ window.onload = () => {
     let storedProjects = localStorage.getItem('projects'); //retrieves project from local storage
     if (storedProjects) {
     let listOfProjects = JSON.parse(storedProjects); //parses project
-    console.log(listOfProjects) 
-    console.log(projects)
     listOfProjects.forEach(project => {
-        projects.push(project)
-    })
-    console.log(projects)  
-        
+        projects.push(project) //putting localStorage projects into projects array
+    })  
     createProject()
     } else {
         console.log('no projects')
