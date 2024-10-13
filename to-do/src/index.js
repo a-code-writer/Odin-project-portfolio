@@ -150,26 +150,27 @@ window.onload = () => {
     // localStorage.clear()
     let storedToDos = localStorage.getItem('taskList'); //retrieves to-do list from local storage
     if (storedToDos) { //checks if to-do list is not empty
-    let listOfToDos = JSON.parse(storedToDos); //parses to-do list
-    document.getElementById('content').innerHTML = "" //gets rid of the default text
-    console.log(listOfToDos)
-    listOfToDos.forEach(toDo => {
-        createToDo(toDo, listOfToDos.indexOf(toDo))
-    })
+        let listOfToDos = JSON.parse(storedToDos); //parses to-do list
+        for (let i = 0; i < listOfToDos.length; i++) { taskList.push(listOfToDos[i]) } //adds to-do list to taskList
+        document.getElementById('content').innerHTML = "" //gets rid of the default text
+        console.log(listOfToDos)
+        console.log(taskList)
+        taskList.forEach(toDo => {
+            createToDo(toDo, taskList.indexOf(toDo))
+        })
     } else{
         console.log('no to-dos')
     }  
 }
 
     //project part
-    //localStorage.clear()
     let storedProjects = localStorage.getItem('projects'); //retrieves project from local storage
     if (storedProjects) {
     let listOfProjects = JSON.parse(storedProjects); //parses project
     listOfProjects.forEach(project => {
         projects.push(project) //putting localStorage projects into projects array
     })  
-    createProject()
+    createProject()  
     } else {
         console.log('no projects')
     }
@@ -182,8 +183,9 @@ window.onload = () => {
 document.getElementById('todayTab').addEventListener('click', () => {
     document.getElementById('content').innerHTML = "";
     const today = new Date();
-    console.log(taskList[0])
-    for(let i = 0; i <= taskList.length; i++){  
+    for(let i = 0; i < taskList.length; i++){  
+        console.log(taskList[i].dueDate)
+        console.log(taskList[i])
         const inputDate = new Date(taskList[i].dueDate);
         const timeDiff = Math.abs(today.getTime() - inputDate.getTime());
         const dayInMilliseconds = 24 * 60 * 60 * 1000;
@@ -198,7 +200,7 @@ document.getElementById('todayTab').addEventListener('click', () => {
         //all tab
 document.getElementById('allTab').addEventListener('click', () => {
     document.getElementById('content').innerHTML = "";
-    for(let i = 0; i <= taskList.length; i++){
+    for(let i = 0; i < taskList.length; i++){
         //append all to-do's within a day to the content div
         console.log(taskList[i])
         createToDo(taskList[i], i)
@@ -210,7 +212,7 @@ document.getElementById('thisWeekTab').addEventListener('click', () => {
     document.getElementById('content').innerHTML = "";
     const today = new Date();
     console.log(taskList[0])
-    for(let i = 0; i <= taskList.length; i++){  
+    for(let i = 0; i < taskList.length; i++){  
         const inputDate = new Date(taskList[i].dueDate);
         const timeDiff = Math.abs(today.getTime() - inputDate.getTime());
         const weekInMilliseconds = 7 * 24 * 60 * 60 * 1000;
@@ -223,7 +225,7 @@ document.getElementById('thisWeekTab').addEventListener('click', () => {
         //priority tab
 document.getElementById('priorityTab').addEventListener('click', () => {
     document.getElementById('content').innerHTML = "";
-    for(let i = 0; i <= taskList.length; i++){
+    for(let i = 0; i < taskList.length; i++){
         console.log(taskList[i].priority)
         if(taskList[i].priority == 'Yes'){
             createToDo(taskList[i], i)
@@ -233,32 +235,3 @@ document.getElementById('priorityTab').addEventListener('click', () => {
 
 export default taskList
 export {projects, addTask, projName, taskProject, form, taskList}
-
-
-//I have a new problem. How do I retrieve projects from localstorage and 
-//add them to the DOM?
-
-//I have it figured out for to-do's, projects are different though.
-//The issue comes from how the create-project function works.
-//createProject() has no parameters. The code inside accesses the projects array
-//and loops through it creating projects and appending them to the DOM
-//However before any of that creation it first takes the value of the projName input field.
-//This is no issue when the submit project button is clicked because when it is clicked the 
-//projName input field will always be filled. Hwoever I am attempting to create projects when the
-//window in loading for the first time (onload) this creates a problem because at this time the
-//input field 'projName' has a value of "" which the createProject() function takes and uses to
-//create an empty project, resulting in these blank <li> elements which I have been seeing.
-//I attempted to solve this by inserting an if statement in the beginning of the function which 
-//read (if projName.value == ""){return}. This would stop the creation of any projects with 
-//an empty title, however this also created another problem. Now there are no projects being created
-//at all. Once the condition of the if statement is met, the rest of the function will not run, meaning
-// that it will not loop thru the projects array and create any projects in the DOM. I thiught of 
-//countering this by rewriting the createProject() function to mimic how the creattodo() function
-//works. But I dont know if thats the right way to do it. The to-dos are working fine. All todos stored
-// in localstorage are being created.
-
-//however todos are objects and projects are arrays. 
-
-//I need to figure out how to make the projects that have a title, while also skipping the ones with "" as
-//the title. Maybe a for loop would work?. for(item in projects){ if(item.title == ""){create project}else{
-//return} Instead of doing for(projects.length) add an if statment after that skips the ones with "" as the title.
