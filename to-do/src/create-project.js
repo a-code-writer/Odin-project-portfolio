@@ -74,6 +74,10 @@ function createProject() {
                     projects.splice(i)
                     document.querySelector(`li[index="${i}"]`).remove()
                     document.querySelector(`div[index="${i}"]`).remove()
+                    const proj_list = JSON.parse(localStorage.getItem('projects'));
+                    const projToDelete = proj_list[i];
+                    const updatedProjects = proj_list.filter(proj => proj !== projToDelete);
+                    localStorage.setItem('projects', JSON.stringify(updatedProjects));
                 })
 
                 //inside of menu button

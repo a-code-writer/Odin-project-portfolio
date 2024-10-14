@@ -171,6 +171,10 @@ const createToDo = (newToDo, i) => {
                     taskList.splice(i, 1)
                     document.querySelector(`li[code="${i}"]`).remove()
                     document.querySelector(`div[code="${i}"]`).remove()
+                    const to_do_list = JSON.parse(localStorage.getItem('taskList'))
+                    const objToDelete = to_do_list.find(obj => obj.name === newToDo.name)
+                    const updatedLocalStorage = to_do_list.filter(obj => obj !== objToDelete)
+                    localStorage.setItem('taskList', JSON.stringify(updatedLocalStorage))
                 })
 
                 //CANCEL BUTTON
