@@ -1,0 +1,49 @@
+body{
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+}
+
+div{
+    display: flex;
+    align-items: center;
+}
+
+img{
+    max-height: 25px;
+    max-width: 25px;
+}
+
+.rotate{
+    transform: rotate(90deg);
+}
+
+#dropdown{
+    flex-direction: column;
+    align-self: center;
+}
+
+#options{
+    flex-direction: column;
+    align-self: flex-start;
+}
+
+.hidden{
+    display: none;
+}
+
+p{
+    margin: 0;
+}
+
+span{
+    align-self: center;
+}
+
+.header{
+    align-self: center;
+}
+
+#frame{
+    align-self: center;
+}
